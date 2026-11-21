@@ -23,7 +23,7 @@ export default function Home() {
       <main className="flex-grow">
         <Hero onOpenContact={() => setContactModalOpen(true)} />
         <ProjectsShowcase />
-        <ServicesSection />
+        <ServicesSection onOpenContact={() => setContactModalOpen(true)} />
         <ContactSection onOpenContact={() => setContactModalOpen(true)} />
       </main>
 
