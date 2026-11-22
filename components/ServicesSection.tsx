@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -157,8 +157,6 @@ const SERVICES_DATA: ServiceCardData[] = [
 ];
 
 export default function ServicesSection({ onOpenContact }: ServicesSectionProps) {
-  const [activeCard, setActiveCard] = useState<string | null>(null);
-
   return (
     <section
       id="services"
@@ -194,19 +192,12 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-6">
           {SERVICES_DATA.map((service) => {
             const VisualizerComponent = service.visualizer;
-            const isHovered = activeCard === service.id;
             const isFullWidthBento = service.id === "telemetry-dashboards";
 
             return (
               <div
                 key={service.id}
-                onMouseEnter={() => setActiveCard(service.id)}
-                onMouseLeave={() => setActiveCard(null)}
-                className={`group relative rounded-[22px] border border-black/[0.08] bg-gradient-to-b ${
-                  service.gradient
-                } transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_50px_-15px_rgba(0,0,0,0.08)] hover:border-black/25 ${
-                  service.colSpan
-                } ${isHovered ? "ring-1 ring-black/15 shadow-[0_20px_45px_-12px_rgba(0,0,0,0.09)]" : ""}`}
+                className={`group relative rounded-[22px] bg-gradient-to-b ${service.gradient} ${service.colSpan}`}
                 style={{
                   cornerShape: "squircle",
                   WebkitCornerShape: "squircle",

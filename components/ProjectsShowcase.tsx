@@ -306,8 +306,6 @@ export default function ProjectsShowcase() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollProgress = TOTAL > 1 ? activeIndex / (TOTAL - 1) : 0;
-
   return (
     <section
       ref={sectionRef}
@@ -322,16 +320,6 @@ export default function ProjectsShowcase() {
       >
         {/* Interactive Floating ASCII Clouds Canvas */}
         <AsciiClouds />
-
-        {/* Top Scroll Progress Hairline */}
-        <div className="relative z-10 w-full h-[2px] bg-black/[0.05] flex-shrink-0">
-          <div
-            className="h-full bg-black transition-all duration-300 ease-out"
-            style={{
-              width: `${Math.max(100 / TOTAL, scrollProgress * 100)}%`,
-            }}
-          />
-        </div>
 
         {/* Section Heading */}
         <div className="relative z-20 wrap pt-5 sm:pt-7 flex-shrink-0 text-center">
