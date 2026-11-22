@@ -31,7 +31,9 @@ export default function ProjectsShowcase() {
   const targetFloatRef = useRef(0);
   const smoothFloatRef = useRef(0);
   const activeIndexRef = useRef(0);
-  const rafIdRef = useRef<number | null>(null);
+  const cardsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const wakeRef = useRef<(() => void) | null>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
@@ -76,83 +78,58 @@ export default function ProjectsShowcase() {
   const spreadFactor = isMobile ? 1.2 : isTablet ? 1.25 : 1.3;
   const dropFactor = isMobile ? 30 : 38;
 
-  // Apply card transforms directly on DOM elements for 60-120fps buttery motion
-  const applyCardTransforms = useCallback(
-    (floatIdx: number) => {
-      const cardsEl = cardsContainerRef.current;
-      if (!cardsEl) return;
+  // Ultra-fast DOM placement on pre-cached card elements (zero DOM queries, zero blur)
+  const place = useCallback(
+    (value: number) => {
+      const cards = cardsRef.current;
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        if (!card) continue;
 
-      const cards = cardsEl.querySelectorAll<HTMLElement>("[data-card-idx]");
-      cards.forEach((card) => {
-        const idx = Number(card.dataset.cardIdx);
-
-        // Circular delta
-        let delta = idx - floatIdx;
+        let delta = i - value;
         if (delta > TOTAL / 2) delta -= TOTAL;
         if (delta < -TOTAL / 2) delta += TOTAL;
-
         const dist = Math.abs(delta);
 
-        const thetaDeg = delta * angleStepDeg;
-        const x = delta * (cardWidth * spreadFactor);
-        const y = Math.pow(dist, 1.7) * dropFactor;
-        const rotateZ = thetaDeg;
-
-        // Far-away cards remain positioned along arc offscreen so they don't pop when entering
         if (dist > 3.8) {
-          card.style.opacity = "0";
-          card.style.pointerEvents = "none";
           card.style.visibility = "hidden";
-          card.style.filter = "blur(8px)";
-          card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0px) rotateZ(${rotateZ.toFixed(2)}deg) scale(0.65)`;
-          return;
+          card.style.pointerEvents = "none";
+          continue;
         }
 
-        card.style.visibility = "visible";
-
-        // Perfectly continuous Gaussian scale curve (zero cliffs, zero snap, 100% fluid)
-        // Center card peaks at 1.20, smoothly tapering down to 0.83 at dist=1 and 0.72 at sides
-        const centerTaper = Math.exp(-Math.pow(dist * 1.15, 2));
-        const scale = 0.73 + 0.47 * centerTaper - Math.min(dist * 0.025, 0.06);
-
+        const x = delta * (cardWidth * spreadFactor);
+        const y = Math.pow(dist, 1.7) * dropFactor;
+        const angle = delta * angleStepDeg;
+        const taper = Math.exp(-Math.pow(dist * 1.15, 2));
+        const scale = 0.73 + 0.47 * taper - Math.min(dist * 0.025, 0.06);
         const opacity = Math.max(0, 1 - Math.max(0, dist - 1.8) * 0.55);
-        const zIndex = Math.round(50 - dist * 10);
 
-        // Smooth continuous depth blur that hits 0 smoothly at center with zero abrupt steps
-        const rawBlur = Math.max(0, (dist - 0.3) * 2.5);
-        const blurPx = Math.min(4.5, rawBlur);
-        card.style.filter = blurPx > 0.1 ? `blur(${blurPx.toFixed(1)}px)` : "none";
-
-        // Clean flat arc transform without 3D depth tilt
-        card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0px) rotateZ(${rotateZ.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+        card.style.visibility = "visible";
+        card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         card.style.opacity = String(opacity);
-        card.style.zIndex = String(zIndex);
+        card.style.zIndex = String(Math.round(50 - dist * 10));
         card.style.pointerEvents = dist < 1.4 ? "auto" : "none";
-
-        // Completely removed shadow and border
-        card.style.boxShadow = "none";
-      });
+      }
     },
-    [cardWidth, spreadFactor, dropFactor, angleStepDeg, isMobile]
+    [cardWidth, spreadFactor, dropFactor, angleStepDeg]
   );
 
-  // rAF loop: continuous smooth motion follower with non-blocking React transitions
+  // RAF loop that sleeps when motion settles and wakes on demand
   useEffect(() => {
-    let running = true;
+    function tick() {
+      const diff = targetFloatRef.current - smoothFloatRef.current;
 
-    const tick = () => {
-      if (!running) return;
+      if (Math.abs(diff) < 0.001) {
+        smoothFloatRef.current = targetFloatRef.current;
+        place(smoothFloatRef.current);
+        rafRef.current = null;
+        return;
+      }
 
-      const target = targetFloatRef.current;
-      const current = smoothFloatRef.current;
-      const diff = target - current;
-
-      // Pure continuous exponential follower — silky, uninterrupted motion
       smoothFloatRef.current += diff * 0.22;
+      place(smoothFloatRef.current);
 
-      applyCardTransforms(smoothFloatRef.current);
-
-      // Synchronize description text to center card concurrently without blocking animation frames
+      // Synchronize description text to center card concurrently without blocking frames
       const centerIndex = Math.min(
         TOTAL - 1,
         Math.max(0, Math.round(smoothFloatRef.current))
@@ -162,7 +139,6 @@ export default function ProjectsShowcase() {
         const prev = activeIndexRef.current;
         activeIndexRef.current = centerIndex;
         const dir = centerIndex >= prev ? "next" : "prev";
-        // Non-blocking concurrent transition in React 19 keeps rAF running at uninterrupted 60/120fps
         startTransition(() => {
           setDirection(dir);
           setPrevIndex(prev);
@@ -170,24 +146,32 @@ export default function ProjectsShowcase() {
         });
       }
 
-      rafIdRef.current = requestAnimationFrame(tick);
-    };
+      rafRef.current = requestAnimationFrame(tick);
+    }
 
-    rafIdRef.current = requestAnimationFrame(tick);
+    function wake() {
+      if (rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    }
+
+    wakeRef.current = wake;
+    wake();
 
     return () => {
-      running = false;
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
       }
     };
-  }, [applyCardTransforms]);
+  }, [place]);
 
   // Navigate to any project index
   const goToProject = useCallback(
     (targetIndex: number) => {
       const clamped = Math.min(TOTAL - 1, Math.max(0, targetIndex));
       targetFloatRef.current = clamped;
+      if (wakeRef.current) wakeRef.current();
 
       const dir = clamped >= activeIndexRef.current ? "next" : "prev";
       setDirection(dir);
@@ -238,6 +222,7 @@ export default function ProjectsShowcase() {
       const dragFactor = isMobile ? 150 : 230;
       const nextTarget = startTargetRef.current - dx / dragFactor;
       targetFloatRef.current = Math.min(TOTAL - 1, Math.max(0, nextTarget));
+      if (wakeRef.current) wakeRef.current();
     }
   };
 
@@ -302,6 +287,7 @@ export default function ProjectsShowcase() {
 
       if (rect.top > 0) {
         targetFloatRef.current = 0;
+        if (wakeRef.current) wakeRef.current();
         return;
       }
 
@@ -313,6 +299,7 @@ export default function ProjectsShowcase() {
         TOTAL - 1,
         Math.max(0, continuousTarget)
       );
+      if (wakeRef.current) wakeRef.current();
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -375,11 +362,14 @@ export default function ProjectsShowcase() {
             {SHOWCASE_PROJECTS.map((proj, idx) => (
               <button
                 key={proj.id}
+                ref={(el) => {
+                  if (el) cardsRef.current[idx] = el;
+                }}
                 type="button"
                 data-card-idx={idx}
                 onClick={() => handleCardClick(idx)}
                 aria-label={`View project ${proj.number}: ${proj.title}`}
-                className="group absolute top-0 left-1/2 overflow-hidden cursor-pointer hover:cursor-zoom-in focus-visible:outline-2 focus-visible:outline-black will-change-[transform,filter,opacity] bg-transparent border-0 shadow-none"
+                className="group absolute top-0 left-1/2 overflow-hidden cursor-pointer hover:cursor-zoom-in focus-visible:outline-2 focus-visible:outline-black will-change-[transform,opacity] bg-transparent border-0 shadow-none"
                 style={{
                   width: `${cardWidth}px`,
                   height: `${cardHeight}px`,
@@ -393,10 +383,10 @@ export default function ProjectsShowcase() {
                   src={proj.mockup}
                   alt={`${proj.title} MacBook Pro mockup`}
                   fill
-                  sizes="(max-width: 640px) 240px, 340px"
-                  className="object-cover pointer-events-none select-none transition-transform duration-300 group-hover:scale-[1.02]"
+                  sizes="(max-width: 640px) 400px, 600px"
+                  quality={70}
+                  className="object-cover pointer-events-none select-none"
                   priority={idx <= 2}
-                  unoptimized
                 />
 
                 {/* Click to enlarge floating badge */}
@@ -408,7 +398,7 @@ export default function ProjectsShowcase() {
             ))}
           </div>
 
-          {/* Active Project Description — directional optical blur & slide transition */}
+          {/* Active Project Description — directional slide transition */}
           <div className="relative z-30 w-full max-w-[540px] mt-5 sm:mt-7 text-center">
             <div className="grid-stack w-full">
               {SHOWCASE_PROJECTS.map((proj, idx) => {
@@ -427,7 +417,7 @@ export default function ProjectsShowcase() {
                 return (
                   <div
                     key={proj.id}
-                    className={`w-full will-change-[transform,opacity,filter] ${animClass}`}
+                    className={`w-full will-change-[transform,opacity] ${animClass}`}
                   >
                     {/* Index Pill — centered */}
                     <div className="flex items-center justify-center mb-2.5">

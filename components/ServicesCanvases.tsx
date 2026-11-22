@@ -49,8 +49,21 @@ export function CodeMatrixVisualizer() {
     ro.observe(canvas);
 
     let offset = 0;
+    let visible = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0) {
+        rafId = requestAnimationFrame(render);
+      }
+    });
+    observer.observe(canvas);
 
     const render = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
 
       // Subtle background grid dots
@@ -118,7 +131,8 @@ export function CodeMatrixVisualizer() {
     canvas.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerleave", onPointerLeave);
@@ -187,8 +201,21 @@ export function NeuralAgentVisualizer() {
     ro.observe(canvas);
 
     let tick = 0;
+    let visible = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0) {
+        rafId = requestAnimationFrame(render);
+      }
+    });
+    observer.observe(canvas);
 
     const render = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
       tick += 0.03;
 
@@ -281,7 +308,8 @@ export function NeuralAgentVisualizer() {
     canvas.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerleave", onPointerLeave);
@@ -350,7 +378,20 @@ export function Wireframe3DVisualizer() {
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
+    let visible = true;
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0) {
+        rafId = requestAnimationFrame(render);
+      }
+    });
+    observer.observe(canvas);
+
     const render = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
 
       // Auto rotation + pointer inertia
@@ -424,7 +465,8 @@ export function Wireframe3DVisualizer() {
     canvas.addEventListener("pointermove", onPointerMove);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();
       canvas.removeEventListener("pointermove", onPointerMove);
     };
@@ -468,8 +510,21 @@ export function DesignGridVisualizer() {
 
     let smoothX = 120;
     let smoothY = 55;
+    let visible = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0) {
+        rafId = requestAnimationFrame(render);
+      }
+    });
+    observer.observe(canvas);
 
     const render = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
 
       // Smooth follower
@@ -530,7 +585,8 @@ export function DesignGridVisualizer() {
     canvas.addEventListener("pointermove", onPointerMove);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();
       canvas.removeEventListener("pointermove", onPointerMove);
     };
@@ -575,8 +631,21 @@ export function WaveformVisualizer() {
     ro.observe(canvas);
 
     let phase = 0;
+    let visible = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0) {
+        rafId = requestAnimationFrame(render);
+      }
+    });
+    observer.observe(canvas);
 
     const render = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
       phase += 0.05;
 
@@ -633,7 +702,8 @@ export function WaveformVisualizer() {
     canvas.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerleave", onPointerLeave);
@@ -680,8 +750,21 @@ export function TelemetryVisualizer() {
 
     const bars = [65, 82, 48, 91, 74, 88, 96, 62, 85, 78];
     let tick = 0;
+    let visible = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0) {
+        rafId = requestAnimationFrame(render);
+      }
+    });
+    observer.observe(canvas);
 
     const render = () => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
       tick += 0.04;
 
@@ -744,7 +827,8 @@ export function TelemetryVisualizer() {
     canvas.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       ro.disconnect();
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerleave", onPointerLeave);

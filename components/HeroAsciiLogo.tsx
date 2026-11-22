@@ -73,8 +73,22 @@ export default function HeroAsciiLogo() {
 
     let rafId = 0;
     const start = performance.now();
+    let visible = true;
+
+    const observer = new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && rafId === 0 && !reducedMotion) {
+        rafId = requestAnimationFrame(drawFrame);
+      }
+    });
+    observer.observe(canvas);
 
     const drawFrame = (now: number) => {
+      if (!visible) {
+        rafId = 0;
+        return;
+      }
+
       const t = (now - start) * 0.001;
       ctx.clearRect(0, 0, HERO_ASCII_WIDTH, HERO_ASCII_HEIGHT);
 
@@ -131,7 +145,8 @@ export default function HeroAsciiLogo() {
     rafId = requestAnimationFrame(drawFrame);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerleave", onPointerLeave);

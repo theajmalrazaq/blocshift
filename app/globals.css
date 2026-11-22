@@ -236,17 +236,15 @@
   animation: showcase-image-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Cinematic Optical Blur & Directional Slide Caption Transitions */
+/* Directional Slide Caption Transitions */
 @keyframes caption-in-next {
   0% {
     opacity: 0;
     transform: translate3d(0, 20px, 0) scale(0.97);
-    filter: blur(8px);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0px);
   }
 }
 
@@ -254,12 +252,10 @@
   0% {
     opacity: 0;
     transform: translate3d(0, -20px, 0) scale(0.97);
-    filter: blur(8px);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0px);
   }
 }
 
@@ -267,12 +263,10 @@
   0% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0px);
   }
   100% {
     opacity: 0;
     transform: translate3d(0, -16px, 0) scale(0.98);
-    filter: blur(6px);
   }
 }
 
@@ -280,12 +274,10 @@
   0% {
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0px);
   }
   100% {
     opacity: 0;
     transform: translate3d(0, 16px, 0) scale(0.98);
-    filter: blur(6px);
   }
 }
 
