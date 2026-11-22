@@ -258,7 +258,7 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     </div>
 
                     {/* Right Panoramic Visualizer */}
-                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] bg-white/90 border border-black/[0.06] overflow-hidden relative shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex-shrink-0">
+                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] border border-black/[0.08] overflow-hidden relative flex-shrink-0">
                       <VisualizerComponent />
                       <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[9px] text-black/25">
                         +
@@ -280,7 +280,7 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     <div>
                       {/* Interactive Canvas Visualizer */}
                       <div
-                        className={`relative w-full rounded-[14px] bg-white/90 border border-black/[0.06] overflow-hidden mb-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] ${
+                        className={`relative w-full rounded-[14px] border border-black/[0.08] overflow-hidden mb-5 ${
                           service.id === "web-engineering"
                             ? "h-[135px] sm:h-[150px]"
                             : "h-[125px] sm:h-[135px]"
