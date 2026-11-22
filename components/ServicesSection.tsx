@@ -249,7 +249,7 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     </div>
 
                     {/* Right Panoramic Visualizer */}
-                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] overflow-hidden relative flex-shrink-0">
+                    <div className="w-full lg:w-[48%] h-[160px] sm:h-[190px] lg:h-[230px] rounded-[16px] overflow-hidden relative flex-shrink-0">
                       <VisualizerComponent />
                     </div>
                   </div>
@@ -257,12 +257,12 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                   /* Standard Bento Card Layout */
                   <div className="flex flex-col justify-between p-5 sm:p-6 h-full">
                     <div>
-                      {/* Interactive Canvas Visualizer */}
+                      {/* Interactive 3D Dither Point-Cloud Canvas Visualizer */}
                       <div
                         className={`relative w-full rounded-[14px] overflow-hidden mb-5 ${
                           service.id === "web-engineering"
-                            ? "h-[135px] sm:h-[150px]"
-                            : "h-[125px] sm:h-[135px]"
+                            ? "h-[145px] sm:h-[165px]"
+                            : "h-[135px] sm:h-[150px]"
                         }`}
                       >
                         <VisualizerComponent />
