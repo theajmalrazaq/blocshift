@@ -407,12 +407,8 @@ export default function ProjectsShowcase() {
                 if (!isCurrent && !isPrev) return null;
 
                 const animClass = isCurrent
-                  ? direction === "next"
-                    ? "animate-caption-in-next z-10 pointer-events-auto"
-                    : "animate-caption-in-prev z-10 pointer-events-auto"
-                  : direction === "next"
-                  ? "animate-caption-out-next z-0 pointer-events-none"
-                  : "animate-caption-out-prev z-0 pointer-events-none";
+                  ? "animate-caption-in z-10 pointer-events-auto"
+                  : "animate-caption-out z-0 pointer-events-none";
 
                 return (
                   <div

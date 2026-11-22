@@ -236,65 +236,39 @@
   animation: showcase-image-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Directional Slide Caption Transitions */
-@keyframes caption-in-next {
+/* Fade Up Caption Transitions */
+@keyframes caption-fade-up-in {
   0% {
     opacity: 0;
-    transform: translate3d(0, 20px, 0) scale(0.97);
+    transform: translate3d(0, 14px, 0);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@keyframes caption-in-prev {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, -20px, 0) scale(0.97);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@keyframes caption-out-next {
+@keyframes caption-fade-up-out {
   0% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
   100% {
     opacity: 0;
-    transform: translate3d(0, -16px, 0) scale(0.98);
+    transform: translate3d(0, -10px, 0);
   }
 }
 
-@keyframes caption-out-prev {
-  0% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0) scale(0.98);
-  }
-}
-
-.animate-caption-in-next {
-  animation: caption-in-next 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
+.animate-caption-in,
+.animate-caption-in-next,
 .animate-caption-in-prev {
-  animation: caption-in-prev 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: caption-fade-up-in 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.animate-caption-out-next {
-  animation: caption-out-next 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
+.animate-caption-out,
+.animate-caption-out-next,
 .animate-caption-out-prev {
-  animation: caption-out-prev 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: caption-fade-up-out 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ==========================================================================
