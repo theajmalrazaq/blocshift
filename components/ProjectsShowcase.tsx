@@ -204,33 +204,17 @@ export default function ProjectsShowcase() {
         isProgrammaticScrollRef.current = false;
       }, 450);
 
-      // Sync window scrollbar position via Lenis smooth scroll
+      // Sync window scrollbar position
       const section = sectionRef.current;
       if (section) {
         const scrollableDistance = section.offsetHeight - window.innerHeight;
         const targetProgress = TOTAL > 1 ? clamped / (TOTAL - 1) : 0;
         const targetY = section.offsetTop + targetProgress * scrollableDistance;
 
-        const win = window as unknown as {
-          lenis?: {
-            scrollTo: (
-              target: number,
-              opts?: { duration?: number; easing?: (t: number) => number }
-            ) => void;
-          };
-        };
-
-        if (win.lenis) {
-          win.lenis.scrollTo(targetY, {
-            duration: 1.1,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        } else {
-          window.scrollTo({
-            top: targetY,
-            behavior: "smooth",
-          });
-        }
+        window.scrollTo({
+          top: targetY,
+          behavior: "smooth",
+        });
       }
     },
     []

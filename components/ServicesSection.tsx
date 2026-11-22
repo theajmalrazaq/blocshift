@@ -258,20 +258,8 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     </div>
 
                     {/* Right Panoramic Visualizer */}
-                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] border border-black/[0.08] overflow-hidden relative flex-shrink-0">
+                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] overflow-hidden relative flex-shrink-0">
                       <VisualizerComponent />
-                      <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[9px] text-black/25">
-                        +
-                      </span>
-                      <span className="pointer-events-none absolute top-1.5 right-2 font-mono text-[9px] text-black/25">
-                        +
-                      </span>
-                      <span className="pointer-events-none absolute bottom-1.5 left-2 font-mono text-[9px] text-black/25">
-                        +
-                      </span>
-                      <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[9px] text-black/25">
-                        +
-                      </span>
                     </div>
                   </div>
                 ) : (
@@ -280,27 +268,13 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     <div>
                       {/* Interactive Canvas Visualizer */}
                       <div
-                        className={`relative w-full rounded-[14px] border border-black/[0.08] overflow-hidden mb-5 ${
+                        className={`relative w-full rounded-[14px] overflow-hidden mb-5 ${
                           service.id === "web-engineering"
                             ? "h-[135px] sm:h-[150px]"
                             : "h-[125px] sm:h-[135px]"
                         }`}
                       >
                         <VisualizerComponent />
-
-                        {/* Subtle Corner Crosshairs */}
-                        <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[9px] text-black/25">
-                          +
-                        </span>
-                        <span className="pointer-events-none absolute top-1.5 right-2 font-mono text-[9px] text-black/25">
-                          +
-                        </span>
-                        <span className="pointer-events-none absolute bottom-1.5 left-2 font-mono text-[9px] text-black/25">
-                          +
-                        </span>
-                        <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[9px] text-black/25">
-                          +
-                        </span>
                       </div>
 
                       {/* Title */}

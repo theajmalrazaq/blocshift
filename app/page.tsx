@@ -9,14 +9,12 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ContactModal from "@/components/ContactModal";
 import ScrollAnimationProvider from "@/components/ScrollAnimationProvider";
-import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 
 export default function Home() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--page)] text-[var(--ink)] antialiased transition-colors">
-      <SmoothScrollProvider />
       <ScrollAnimationProvider />
       <Navbar onOpenContact={() => setContactModalOpen(true)} />
 
