@@ -35,6 +35,8 @@ interface ServiceCardData {
   visualizer: React.ComponentType;
   specs: string[];
   benefit: string;
+  gradient: string;
+  colSpan: string;
 }
 
 const SERVICES_DATA: ServiceCardData[] = [
@@ -54,6 +56,8 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Fast load times & SEO optimization",
     ],
     benefit: "Fast & Scalable",
+    gradient: "from-[#e8f4fc]/90 via-[#f4f9fd]/60 to-white",
+    colSpan: "col-span-1 md:col-span-2 lg:col-span-7",
   },
   {
     id: "applied-ai",
@@ -71,6 +75,8 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Reliable 24/7 background workflows",
     ],
     benefit: "24/7 Automated",
+    gradient: "from-[#ede9fe]/80 via-[#f7f5ff]/60 to-white",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-5",
   },
   {
     id: "spatial-3d",
@@ -88,6 +94,8 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Lightweight & mobile-optimized",
     ],
     benefit: "Interactive 3D",
+    gradient: "from-[#dbeafe]/80 via-[#f0f6ff]/60 to-white",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-4",
   },
   {
     id: "design-systems",
@@ -105,6 +113,8 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Pixel-clean developer handoff",
     ],
     benefit: "Cohesive Design",
+    gradient: "from-[#f1f5f9] via-[#f8fafc]/70 to-white",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-4",
   },
   {
     id: "conversion-funnels",
@@ -122,6 +132,8 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Built-in conversion tracking",
     ],
     benefit: "Higher Conversion",
+    gradient: "from-[#fee2e2]/60 via-[#fef6f6]/60 to-white",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-4",
   },
   {
     id: "telemetry-dashboards",
@@ -139,6 +151,8 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Automated reporting & data sync",
     ],
     benefit: "Real-Time Insights",
+    gradient: "from-[#e0f2fe]/80 via-[#f0f9ff]/60 to-white",
+    colSpan: "col-span-1 md:col-span-2 lg:col-span-12",
   },
 ];
 
@@ -176,98 +190,186 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
           </p>
         </div>
 
-        {/* 6-Card Pixel-Infused Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {/* Pixel-Infused Bento Grid with Soft Gradients */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-6">
           {SERVICES_DATA.map((service) => {
             const VisualizerComponent = service.visualizer;
             const IconComponent = service.icon;
             const isHovered = activeCard === service.id;
+            const isFullWidthBento = service.id === "telemetry-dashboards";
 
             return (
               <div
                 key={service.id}
                 onMouseEnter={() => setActiveCard(service.id)}
                 onMouseLeave={() => setActiveCard(null)}
-                className={`group relative flex flex-col justify-between p-5 sm:p-6 rounded-[20px] border bg-white transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_20px_45px_-12px_rgba(0,0,0,0.09)] ${
-                  isHovered
-                    ? "border-black/40 ring-1 ring-black/10"
-                    : "border-black/[0.08]"
-                }`}
+                className={`group relative rounded-[22px] border border-black/[0.08] bg-gradient-to-b ${
+                  service.gradient
+                } transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_50px_-15px_rgba(0,0,0,0.08)] hover:border-black/25 ${
+                  service.colSpan
+                } ${isHovered ? "ring-1 ring-black/15 shadow-[0_20px_45px_-12px_rgba(0,0,0,0.09)]" : ""}`}
                 style={{
                   cornerShape: "squircle",
                   WebkitCornerShape: "squircle",
                 } as React.CSSProperties}
               >
-                <div>
-                  {/* Interactive Pixel / ASCII Canvas Visualizer Header */}
-                  <div className="relative w-full h-[125px] sm:h-[135px] rounded-[14px] bg-[#f8fafc] border border-black/[0.05] overflow-hidden mb-5">
-                    <VisualizerComponent />
+                {isFullWidthBento ? (
+                  /* Panoramic Bento Card Layout for Telemetry & Analytics */
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-8 justify-between p-6 sm:p-8 h-full">
+                    {/* Left details */}
+                    <div className="flex-1 flex flex-col justify-between h-full">
+                      <div>
+                        {/* Meta: Number + Category */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-[12px] font-semibold text-black/40 tabular-nums">
+                              {service.number}
+                            </span>
+                            <span className="w-1 h-1 rounded-full bg-black/20" />
+                            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black/60 uppercase tracking-wide">
+                              <IconComponent className="w-3.5 h-3.5 text-black/70" />
+                              <span>{service.category}</span>
+                            </span>
+                          </div>
+                        </div>
 
-                    {/* Corner Pixel Crosshair Accents */}
-                    <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[9px] text-black/25">
-                      +
-                    </span>
-                    <span className="pointer-events-none absolute top-1.5 right-2 font-mono text-[9px] text-black/25">
-                      +
-                    </span>
-                    <span className="pointer-events-none absolute bottom-1.5 left-2 font-mono text-[9px] text-black/25">
-                      +
-                    </span>
-                    <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[9px] text-black/25">
-                      +
-                    </span>
-                  </div>
+                        {/* Title */}
+                        <h3 className="text-xl sm:text-[24px] font-medium leading-[1.2] tracking-[-0.025em] text-black mb-2.5">
+                          {service.title}
+                        </h3>
 
-                  {/* Card Meta: Number + Category Tag */}
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="font-mono text-[12px] font-semibold text-black/40 tracking-wider">
-                      {service.number}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black/60 uppercase tracking-wide">
-                      <IconComponent className="w-3.5 h-3.5 text-black/70" />
-                      <span>{service.category}</span>
-                    </span>
-                  </div>
+                        {/* Description */}
+                        <p className="text-xs sm:text-[13px] leading-[1.65] text-black/65 font-normal m-0 mb-5 max-w-[580px]">
+                          {service.description}
+                        </p>
 
-                  {/* Title */}
-                  <h3 className="text-xl sm:text-[22px] font-medium leading-[1.2] tracking-[-0.025em] text-black mb-2.5">
-                    {service.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-[13px] leading-[1.65] text-black/65 font-normal m-0 mb-5">
-                    {service.description}
-                  </p>
-                </div>
-
-                {/* Service Features Checklist */}
-                <div className="pt-4 border-t border-black/[0.07] mt-auto">
-                  <div className="space-y-2 mb-5 text-[12px] sm:text-[13px] text-black/75">
-                    {service.specs.map((spec, sIdx) => (
-                      <div key={sIdx} className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-black/35 flex-shrink-0" />
-                        <span className="leading-snug">{spec}</span>
+                        {/* 2-Column Features Checklist on larger screens */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6 text-[12px] sm:text-[13px] text-black/75">
+                          {service.specs.map((spec, sIdx) => (
+                            <div key={sIdx} className="flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-black/35 flex-shrink-0" />
+                              <span className="leading-snug">{spec}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    ))}
-                  </div>
 
-                  {/* Bottom Benefit & Action Bar */}
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-[8px] bg-black/[0.04] border border-black/[0.06] text-[11px] font-medium text-black/70">
-                      <span>{service.benefit}</span>
-                    </span>
+                      {/* Bottom Benefit & Action Bar */}
+                      <div className="flex items-center justify-between pt-4 border-t border-black/[0.07] mt-auto">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-[8px] bg-black/[0.04] border border-black/[0.06] text-[11px] font-medium text-black/70">
+                          <span>{service.benefit}</span>
+                        </span>
 
-                    <button
-                      type="button"
-                      onClick={onOpenContact}
-                      className="group/inq inline-flex items-center gap-1.5 text-[12px] font-semibold text-black hover:text-black transition-colors cursor-pointer"
-                      aria-label={`Inquire about ${service.title}`}
-                    >
-                      <span>Inquire</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/inq:translate-x-0.5" />
-                    </button>
+                        <button
+                          type="button"
+                          onClick={onOpenContact}
+                          className="group/inq inline-flex items-center gap-1.5 text-[12px] font-semibold text-black hover:text-black transition-colors cursor-pointer"
+                          aria-label={`Inquire about ${service.title}`}
+                        >
+                          <span>Inquire</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/inq:translate-x-0.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Right Panoramic Visualizer */}
+                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] bg-white/90 border border-black/[0.06] overflow-hidden relative shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex-shrink-0">
+                      <VisualizerComponent />
+                      <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[9px] text-black/25">
+                        +
+                      </span>
+                      <span className="pointer-events-none absolute top-1.5 right-2 font-mono text-[9px] text-black/25">
+                        +
+                      </span>
+                      <span className="pointer-events-none absolute bottom-1.5 left-2 font-mono text-[9px] text-black/25">
+                        +
+                      </span>
+                      <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[9px] text-black/25">
+                        +
+                      </span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  /* Standard Bento Card Layout */
+                  <div className="flex flex-col justify-between p-5 sm:p-6 h-full">
+                    <div>
+                      {/* Interactive Canvas Visualizer */}
+                      <div
+                        className={`relative w-full rounded-[14px] bg-white/90 border border-black/[0.06] overflow-hidden mb-5 shadow-[0_2px_12px_rgba(0,0,0,0.02)] ${
+                          service.id === "web-engineering"
+                            ? "h-[135px] sm:h-[150px]"
+                            : "h-[125px] sm:h-[135px]"
+                        }`}
+                      >
+                        <VisualizerComponent />
+
+                        {/* Subtle Corner Crosshairs */}
+                        <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[9px] text-black/25">
+                          +
+                        </span>
+                        <span className="pointer-events-none absolute top-1.5 right-2 font-mono text-[9px] text-black/25">
+                          +
+                        </span>
+                        <span className="pointer-events-none absolute bottom-1.5 left-2 font-mono text-[9px] text-black/25">
+                          +
+                        </span>
+                        <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[9px] text-black/25">
+                          +
+                        </span>
+                      </div>
+
+                      {/* Card Meta: Number + Category */}
+                      <div className="flex items-center justify-between mb-2.5">
+                        <span className="font-mono text-[12px] font-semibold text-black/40 tabular-nums">
+                          {service.number}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black/60 uppercase tracking-wide">
+                          <IconComponent className="w-3.5 h-3.5 text-black/70" />
+                          <span>{service.category}</span>
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl sm:text-[22px] font-medium leading-[1.2] tracking-[-0.025em] text-black mb-2.5">
+                        {service.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-xs sm:text-[13px] leading-[1.65] text-black/65 font-normal m-0 mb-5">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* Service Features Checklist */}
+                    <div className="pt-4 border-t border-black/[0.07] mt-auto">
+                      <div className="space-y-2 mb-5 text-[12px] sm:text-[13px] text-black/75">
+                        {service.specs.map((spec, sIdx) => (
+                          <div key={sIdx} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-black/35 flex-shrink-0" />
+                            <span className="leading-snug">{spec}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Bottom Benefit & Action Bar */}
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-[8px] bg-black/[0.04] border border-black/[0.06] text-[11px] font-medium text-black/70">
+                          <span>{service.benefit}</span>
+                        </span>
+
+                        <button
+                          type="button"
+                          onClick={onOpenContact}
+                          className="group/inq inline-flex items-center gap-1.5 text-[12px] font-semibold text-black hover:text-black transition-colors cursor-pointer"
+                          aria-label={`Inquire about ${service.title}`}
+                        >
+                          <span>Inquire</span>
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/inq:translate-x-0.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })}
