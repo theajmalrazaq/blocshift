@@ -194,7 +194,6 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-6">
           {SERVICES_DATA.map((service) => {
             const VisualizerComponent = service.visualizer;
-            const IconComponent = service.icon;
             const isHovered = activeCard === service.id;
             const isFullWidthBento = service.id === "telemetry-dashboards";
 
@@ -219,20 +218,6 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     {/* Left details */}
                     <div className="flex-1 flex flex-col justify-between h-full">
                       <div>
-                        {/* Meta: Number + Category */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-[12px] font-semibold text-black/40 tabular-nums">
-                              {service.number}
-                            </span>
-                            <span className="w-1 h-1 rounded-full bg-black/20" />
-                            <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black/60 uppercase tracking-wide">
-                              <IconComponent className="w-3.5 h-3.5 text-black/70" />
-                              <span>{service.category}</span>
-                            </span>
-                          </div>
-                        </div>
-
                         {/* Title */}
                         <h3 className="text-xl sm:text-[24px] font-medium leading-[1.2] tracking-[-0.025em] text-black mb-2.5">
                           {service.title}
@@ -315,17 +300,6 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                         </span>
                         <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[9px] text-black/25">
                           +
-                        </span>
-                      </div>
-
-                      {/* Card Meta: Number + Category */}
-                      <div className="flex items-center justify-between mb-2.5">
-                        <span className="font-mono text-[12px] font-semibold text-black/40 tabular-nums">
-                          {service.number}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-black/60 uppercase tracking-wide">
-                          <IconComponent className="w-3.5 h-3.5 text-black/70" />
-                          <span>{service.category}</span>
                         </span>
                       </div>
 
