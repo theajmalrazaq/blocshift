@@ -11,6 +11,7 @@ import {
   Box,
   BarChart3,
   Zap,
+  CheckCircle2,
 } from "lucide-react";
 import {
   CodeMatrixVisualizer,
@@ -223,7 +224,7 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6 text-[12px] sm:text-[13px] text-black/75">
                           {service.specs.map((spec, sIdx) => (
                             <div key={sIdx} className="flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-black/35 flex-shrink-0" />
+                              <CheckCircle2 className="w-3.5 h-3.5 text-black/50 flex-shrink-0 stroke-[1.8]" />
                               <span className="leading-snug">{spec}</span>
                             </div>
                           ))}
@@ -249,7 +250,7 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                     </div>
 
                     {/* Right Panoramic Visualizer */}
-                    <div className="w-full lg:w-[48%] h-[160px] sm:h-[190px] lg:h-[230px] rounded-[16px] overflow-hidden relative flex-shrink-0">
+                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] overflow-hidden relative flex-shrink-0">
                       <VisualizerComponent />
                     </div>
                   </div>
@@ -257,12 +258,12 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                   /* Standard Bento Card Layout */
                   <div className="flex flex-col justify-between p-5 sm:p-6 h-full">
                     <div>
-                      {/* Interactive 3D Dither Point-Cloud Canvas Visualizer */}
+                      {/* Interactive Canvas Visualizer */}
                       <div
                         className={`relative w-full rounded-[14px] overflow-hidden mb-5 ${
                           service.id === "web-engineering"
-                            ? "h-[145px] sm:h-[165px]"
-                            : "h-[135px] sm:h-[150px]"
+                            ? "h-[135px] sm:h-[150px]"
+                            : "h-[125px] sm:h-[135px]"
                         }`}
                       >
                         <VisualizerComponent />
@@ -284,7 +285,7 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                       <div className="space-y-2 mb-5 text-[12px] sm:text-[13px] text-black/75">
                         {service.specs.map((spec, sIdx) => (
                           <div key={sIdx} className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-black/35 flex-shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-black/50 flex-shrink-0 stroke-[1.8]" />
                             <span className="leading-snug">{spec}</span>
                           </div>
                         ))}
