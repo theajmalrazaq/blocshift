@@ -5,10 +5,8 @@ import Link from "next/link";
 import {
   ArrowRight,
   Terminal,
-  Cpu,
   Sparkles,
   Layers,
-  Box,
   BarChart3,
   Zap,
   CheckCircle2,
@@ -16,7 +14,6 @@ import {
 import {
   CodeMatrixVisualizer,
   NeuralAgentVisualizer,
-  Wireframe3DVisualizer,
   DesignGridVisualizer,
   WaveformVisualizer,
   TelemetryVisualizer,
@@ -80,27 +77,8 @@ const SERVICES_DATA: ServiceCardData[] = [
     colSpan: "col-span-1 md:col-span-1 lg:col-span-5",
   },
   {
-    id: "spatial-3d",
-    number: "03",
-    category: "Interactive 3D",
-    title: "3D Product Visualizers",
-    description:
-      "Interactive 3D configurators that let your customers rotate, inspect materials, and customize products directly in their browser.",
-    icon: Box,
-    visualizer: Wireframe3DVisualizer,
-    specs: [
-      "Real-time 3D product viewports",
-      "Interactive material & color pickers",
-      "Smooth motion without extra plugins",
-      "Lightweight & mobile-optimized",
-    ],
-    benefit: "Interactive 3D",
-    gradient: "from-[#dbeafe]/80 via-[#f0f6ff]/60 to-white",
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-4",
-  },
-  {
     id: "design-systems",
-    number: "04",
+    number: "03",
     category: "Product Design",
     title: "Product Design & Design Systems",
     description:
@@ -115,11 +93,11 @@ const SERVICES_DATA: ServiceCardData[] = [
     ],
     benefit: "Cohesive Design",
     gradient: "from-[#f1f5f9] via-[#f8fafc]/70 to-white",
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-4",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-6",
   },
   {
     id: "conversion-funnels",
-    number: "05",
+    number: "04",
     category: "Growth & CRO",
     title: "High-Converting Landing Pages",
     description:
@@ -134,11 +112,11 @@ const SERVICES_DATA: ServiceCardData[] = [
     ],
     benefit: "Higher Conversion",
     gradient: "from-[#fee2e2]/60 via-[#fef6f6]/60 to-white",
-    colSpan: "col-span-1 md:col-span-1 lg:col-span-4",
+    colSpan: "col-span-1 md:col-span-1 lg:col-span-6",
   },
   {
     id: "telemetry-dashboards",
-    number: "06",
+    number: "05",
     category: "Data & Analytics",
     title: "Dashboards & Analytics",
     description:
@@ -184,8 +162,8 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
 
           {/* Subtext */}
           <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[620px] m-0">
-            From high-conversion web platforms and interactive 3D to autonomous AI
-            systems — we turn complex challenges into shipped, scalable digital reality.
+            From high-performance web platforms and autonomous AI systems to intuitive
+            product design and high-converting funnels — we turn complex challenges into shipped reality.
           </p>
         </div>
 
