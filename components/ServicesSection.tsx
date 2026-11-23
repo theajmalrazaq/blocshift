@@ -50,7 +50,7 @@ const SERVICES_DATA: ServiceCardData[] = [
     specs: [
       "Custom web applications & portals",
       "Headless e-commerce & APIs",
-      "Smooth 60fps animations & transitions",
+      "Scalable full-stack engineering",
       "Fast load times & SEO optimization",
     ],
     benefit: "Fast & Scalable",
