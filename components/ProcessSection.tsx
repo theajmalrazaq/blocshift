@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   ProcessVisual01Scope,
   ProcessVisual02Design,
@@ -29,15 +29,10 @@ const PROCESS_STEPS: ProcessStep[] = [
     number: "01",
     shortLabel: "Scope",
     phase: "Phase 01",
-    title: "Scope & Architecture Lock",
+    title: "Scope & Architecture",
     description:
-      "We align on business goals, user journeys, and technical constraints to lock a fixed-milestone roadmap before writing code.",
-    deliverables: [
-      "Technical architecture & stack specification",
-      "Clear milestone roadmap & sprint cadence",
-      "API contracts & database schema definitions",
-      "Direct Slack channel & team onboarding",
-    ],
+      "Align on goals, user flows, and technical architecture before writing code.",
+    deliverables: ["Stack spec", "API & schema", "Direct Slack"],
     milestone: "Scope & Architecture Lock",
     renderVisual: () => <ProcessVisual01Scope />,
   },
@@ -45,15 +40,10 @@ const PROCESS_STEPS: ProcessStep[] = [
     number: "02",
     shortLabel: "Design",
     phase: "Phase 02",
-    title: "UI/UX Design & Interactive Prototypes",
+    title: "Design & Prototypes",
     description:
-      "High-craft interfaces and modular Figma component libraries built for real-world content, edge cases, and fast engineering handoff.",
-    deliverables: [
-      "Interactive, clickable Figma prototypes",
-      "Modular design tokens & component system",
-      "Desktop, tablet & mobile responsive states",
-      "Design-to-code token parity verification",
-    ],
+      "Clickable Figma flows and modular token libraries ready for clean handoff.",
+    deliverables: ["Figma prototypes", "Design tokens", "Responsive states"],
     milestone: "Figma Component System",
     renderVisual: () => <ProcessVisual02Design />,
   },
@@ -61,15 +51,10 @@ const PROCESS_STEPS: ProcessStep[] = [
     number: "03",
     shortLabel: "Sprints",
     phase: "Phase 03",
-    title: "Production Sprints & Live Staging",
+    title: "Production Sprints",
     description:
-      "Production code deployed continuously to a live staging URL. Review real interactions in your browser instead of waiting on slide decks.",
-    deliverables: [
-      "Live preview staging deployments",
-      "Async Loom video walkthroughs with each build",
-      "Continuous CI/CD pipeline & automated tests",
-      "Regular sprint reviews & feedback integration",
-    ],
+      "Live staging builds and async walkthroughs so you test real software early.",
+    deliverables: ["Live staging URL", "Async Looms", "Automated CI/CD"],
     milestone: "Continuous Staging Builds",
     renderVisual: () => <ProcessVisual03Sprints />,
   },
@@ -77,15 +62,10 @@ const PROCESS_STEPS: ProcessStep[] = [
     number: "04",
     shortLabel: "Launch",
     phase: "Phase 04",
-    title: "QA, Launch & 100% IP Handover",
+    title: "QA & Handover",
     description:
-      "Rigorous performance tuning, Core Web Vitals audit, real-time telemetry instrumentation, and complete repository handover with zero lock-in.",
-    deliverables: [
-      "Sub-second load times & 99+ Lighthouse score",
-      "Clean Git repository, docs & 100% IP ownership",
-      "Real-time telemetry, error monitoring & analytics",
-      "Post-launch stabilization & optional pod support",
-    ],
+      "Core Web Vitals tuning, live telemetry, and 100% repository IP ownership.",
+    deliverables: ["99+ Lighthouse", "Live telemetry", "100% IP transfer"],
     milestone: "100/100 Core Web Vitals",
     renderVisual: () => <ProcessVisual04Launch />,
   },
@@ -215,13 +195,12 @@ export default function ProcessSection({ onOpenContact }: ProcessSectionProps) {
           <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3 reveal-on-scroll">
             How We Work · The Sprint Cadence
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] m-0 reveal-on-scroll">
-            <span className="text-[#202124]">From brief to shipped. </span>
-            <span className="text-black/45">Four clear phases, zero black boxes.</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0 reveal-on-scroll">
+            From brief to shipped.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[600px] m-0 reveal-on-scroll reveal-delay-100">
-            A predictable, four-phase delivery cycle. Scroll through each stage
-            or click any milestone to inspect how we take products from spec to live launch.
+            Four clear phases, zero black boxes — scroll through each stage
+            or click any milestone to inspect how we take products from spec to launch.
           </p>
         </div>
 
@@ -336,21 +315,19 @@ export default function ProcessSection({ onOpenContact }: ProcessSectionProps) {
                       </h3>
 
                       {/* Description */}
-                      <p className="text-xs sm:text-[13px] leading-[1.65] text-black/65 font-normal m-0 mb-4">
+                      <p className="text-xs sm:text-[13px] leading-[1.6] text-black/60 font-normal m-0 mb-3.5">
                         {step.description}
                       </p>
 
-                      {/* Compact 2-column deliverables */}
-                      <div className="pt-3.5 border-t border-black/[0.07] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[12px] text-black/80">
+                      {/* Compact Deliverable Tags */}
+                      <div className="flex flex-wrap gap-1.5">
                         {step.deliverables.map((item) => (
-                          <div key={item} className="flex items-start gap-2">
-                            <CheckCircle2
-                              className={`w-3.5 h-3.5 flex-shrink-0 stroke-[1.8] mt-0.5 transition-colors duration-300 ${
-                                isActive ? "text-[#202124]" : "text-black/40"
-                              }`}
-                            />
-                            <span className="leading-snug">{item}</span>
-                          </div>
+                          <span
+                            key={item}
+                            className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#f2f2f0] text-[#51565c]"
+                          >
+                            {item}
+                          </span>
                         ))}
                       </div>
 

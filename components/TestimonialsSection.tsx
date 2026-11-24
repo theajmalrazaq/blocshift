@@ -72,13 +72,11 @@ export default function TestimonialsSection() {
           <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             Client Outcomes
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] m-0">
-            <span className="text-[#202124]">Trusted by teams that ship. </span>
-            <span className="text-black/45">Proof in every release.</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
+            Trusted by teams that ship.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[560px] m-0">
-            Founders and product leaders bring us in when craft, speed, and
-            reliability all have to land at once.
+            Proof in every release — founders and product leaders bring us in when craft, speed, and reliability have to land at once.
           </p>
         </div>
 

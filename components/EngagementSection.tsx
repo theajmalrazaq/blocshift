@@ -85,13 +85,11 @@ export default function EngagementSection({
           <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             Ways to Work Together
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] m-0">
-            <span className="text-[#202124]">Flexible models. </span>
-            <span className="text-black/45">Built around your product momentum.</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
+            Flexible models.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[580px] m-0">
-            Whether you need a sharp two-week launch or a long-term engineering
-            partner, every engagement is led directly by senior builders.
+            Built around your product momentum — whether you need a focused sprint or a long-term engineering partner.
           </p>
         </div>
 

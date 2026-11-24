@@ -60,13 +60,12 @@ export default function FaqSection({ onOpenContact }: FaqSectionProps) {
             <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
               Common Questions
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-[44px] font-medium leading-[1.08] tracking-[-0.035em] m-0">
-              <span className="text-[#202124]">Questions, </span>
-              <span className="text-black/45">answered directly.</span>
+            <h2 className="text-3xl sm:text-4xl md:text-[44px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
+              Questions, answered.
             </h2>
             <p className="mt-4 text-sm sm:text-base leading-[1.65] text-black/60 font-normal max-w-[420px] m-0">
               Everything founders usually ask before we kick off a sprint or
-              product build. Still have something specific in mind?
+              product build — answered directly.
             </p>
 
             <button
