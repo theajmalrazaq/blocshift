@@ -1,33 +1,39 @@
 "use client";
 
-import React, { startTransition, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  startTransition,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
-import { ArrowRight, X, ZoomIn } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ZoomIn,
+} from "lucide-react";
 import { SHOWCASE_PROJECTS, ShowcaseProject } from "@/data/projects";
-import AsciiClouds from "./AsciiClouds";
 
 const TOTAL = SHOWCASE_PROJECTS.length;
-// Calibrated scroll runway for super smooth, responsive rotation with Lenis
-const VH_PER_PROJECT = 16;
 
 export default function ProjectsShowcase() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const cardsContainerRef = useRef<HTMLDivElement | null>(null);
-  const programmaticScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const isProgrammaticScrollRef = useRef(false);
 
-  // Mouse drag rotation tracking
+  // Mouse & touch drag tracking
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
+  const startYRef = useRef(0);
   const startTargetRef = useRef(0);
   const hasMovedRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
 
-  // Big preview modal state
+  // Enlarged lightbox state
   const [modalProject, setModalProject] = useState<ShowcaseProject | null>(null);
 
-  // High-performance continuous interpolation refs
+  // Continuous interpolation refs
   const targetFloatRef = useRef(0);
   const smoothFloatRef = useRef(0);
   const activeIndexRef = useRef(0);
@@ -37,10 +43,8 @@ export default function ProjectsShowcase() {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState<number | null>(null);
-  const [direction, setDirection] = useState<"next" | "prev">("next");
   const [viewportWidth, setViewportWidth] = useState(1440);
 
-  // Track viewport width
   useEffect(() => {
     const updateWidth = () => setViewportWidth(window.innerWidth);
     updateWidth();
@@ -48,7 +52,6 @@ export default function ProjectsShowcase() {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // Clear previous index after caption exit transition
   useEffect(() => {
     if (prevIndex !== null) {
       const timer = setTimeout(() => setPrevIndex(null), 400);
@@ -56,29 +59,14 @@ export default function ProjectsShowcase() {
     }
   }, [prevIndex]);
 
-  // Handle Escape key to close big preview modal
-  useEffect(() => {
-    if (!modalProject) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setModalProject(null);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [modalProject]);
-
-  // Responsive geometry
   const isMobile = viewportWidth < 640;
   const isTablet = viewportWidth >= 640 && viewportWidth < 1024;
 
-  const cardWidth = isMobile ? 200 : isTablet ? 250 : 290;
-  const cardHeight = Math.round(cardWidth * 0.73);
-  const angleStepDeg = isMobile ? 15 : 13.5;
-  const spreadFactor = isMobile ? 1.2 : isTablet ? 1.25 : 1.3;
-  const dropFactor = isMobile ? 30 : 38;
+  // Flat browser-card dimensions (no tilted arc, no gray 3D laptop slabs)
+  const cardWidth = isMobile ? 286 : isTablet ? 400 : 480;
+  const cardHeight = Math.round(cardWidth * 0.65);
+  const spreadFactor = isMobile ? 1.08 : isTablet ? 1.12 : 1.12;
 
-  // Ultra-fast DOM placement on pre-cached card elements (zero DOM queries, zero blur)
   const place = useCallback(
     (value: number) => {
       const cards = cardsRef.current;
@@ -91,30 +79,28 @@ export default function ProjectsShowcase() {
         if (delta < -TOTAL / 2) delta += TOTAL;
         const dist = Math.abs(delta);
 
-        if (dist > 3.8) {
+        if (dist > 2.6) {
           card.style.visibility = "hidden";
           card.style.pointerEvents = "none";
           continue;
         }
 
         const x = delta * (cardWidth * spreadFactor);
-        const y = Math.pow(dist, 1.7) * dropFactor;
-        const angle = delta * angleStepDeg;
-        const taper = Math.exp(-Math.pow(dist * 1.15, 2));
-        const scale = 0.73 + 0.47 * taper - Math.min(dist * 0.025, 0.06);
-        const opacity = Math.max(0, 1 - Math.max(0, dist - 1.8) * 0.55);
+        const taper = Math.exp(-Math.pow(dist * 1.1, 2));
+        const scale = 0.86 + 0.14 * taper;
+        const y = (1 - taper) * 14;
+        const opacity = Math.max(0, 1 - Math.max(0, dist - 1.1) * 0.65);
 
         card.style.visibility = "visible";
-        card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        card.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
         card.style.opacity = String(opacity);
         card.style.zIndex = String(Math.round(50 - dist * 10));
-        card.style.pointerEvents = dist < 1.4 ? "auto" : "none";
+        card.style.pointerEvents = dist < 1.35 ? "auto" : "none";
       }
     },
-    [cardWidth, spreadFactor, dropFactor, angleStepDeg]
+    [cardWidth, spreadFactor]
   );
 
-  // RAF loop that sleeps when motion settles and wakes on demand
   useEffect(() => {
     function tick() {
       const diff = targetFloatRef.current - smoothFloatRef.current;
@@ -129,21 +115,20 @@ export default function ProjectsShowcase() {
       smoothFloatRef.current += diff * 0.22;
       place(smoothFloatRef.current);
 
-      // Synchronize description text to center card concurrently without blocking frames
-      const centerIndex = Math.min(
-        TOTAL - 1,
-        Math.max(0, Math.round(smoothFloatRef.current))
-      );
+      if (isDraggingRef.current) {
+        const centerIndex = Math.min(
+          TOTAL - 1,
+          Math.max(0, Math.round(smoothFloatRef.current))
+        );
 
-      if (centerIndex !== activeIndexRef.current) {
-        const prev = activeIndexRef.current;
-        activeIndexRef.current = centerIndex;
-        const dir = centerIndex >= prev ? "next" : "prev";
-        startTransition(() => {
-          setDirection(dir);
-          setPrevIndex(prev);
-          setActiveIndex(centerIndex);
-        });
+        if (centerIndex !== activeIndexRef.current) {
+          const prev = activeIndexRef.current;
+          activeIndexRef.current = centerIndex;
+          startTransition(() => {
+            setPrevIndex(prev);
+            setActiveIndex(centerIndex);
+          });
+        }
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -166,60 +151,79 @@ export default function ProjectsShowcase() {
     };
   }, [place]);
 
-  // Navigate to any project index
-  const goToProject = useCallback(
-    (targetIndex: number) => {
-      const clamped = Math.min(TOTAL - 1, Math.max(0, targetIndex));
-      targetFloatRef.current = clamped;
-      if (wakeRef.current) wakeRef.current();
+  const goToProject = useCallback((targetIndex: number) => {
+    const clamped = Math.min(TOTAL - 1, Math.max(0, targetIndex));
+    targetFloatRef.current = clamped;
+    if (wakeRef.current) wakeRef.current();
 
-      const dir = clamped >= activeIndexRef.current ? "next" : "prev";
-      setDirection(dir);
-      setPrevIndex(activeIndexRef.current);
-      setActiveIndex(clamped);
-      activeIndexRef.current = clamped;
+    if (clamped === activeIndexRef.current) return;
 
-      // Lock scroll listener temporarily during programmatic jump
-      isProgrammaticScrollRef.current = true;
-      if (programmaticScrollTimerRef.current) {
-        clearTimeout(programmaticScrollTimerRef.current);
+    const prev = activeIndexRef.current;
+    activeIndexRef.current = clamped;
+    setPrevIndex(prev);
+    setActiveIndex(clamped);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (modalProject) {
+        if (e.key === "Escape") {
+          setModalProject(null);
+        }
+        return;
       }
-      programmaticScrollTimerRef.current = setTimeout(() => {
-        isProgrammaticScrollRef.current = false;
-      }, 450);
 
-      // Sync window scrollbar position
-      const section = sectionRef.current;
-      if (section) {
-        const scrollableDistance = section.offsetHeight - window.innerHeight;
-        const targetProgress = TOTAL > 1 ? clamped / (TOTAL - 1) : 0;
-        const targetY = section.offsetTop + targetProgress * scrollableDistance;
-
-        window.scrollTo({
-          top: targetY,
-          behavior: "smooth",
-        });
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
       }
-    },
-    []
-  );
 
-  // Mouse drag handlers on carousel stage
+      if (e.key === "ArrowLeft") {
+        goToProject(activeIndexRef.current - 1);
+      } else if (e.key === "ArrowRight") {
+        goToProject(activeIndexRef.current + 1);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [modalProject, goToProject]);
+
   const onPointerDown = (e: React.PointerEvent) => {
-    if (e.button !== 0) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
     isDraggingRef.current = true;
     startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
     startTargetRef.current = targetFloatRef.current;
     hasMovedRef.current = false;
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {
+      // ignore
+    }
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (!isDraggingRef.current) return;
     const dx = e.clientX - startXRef.current;
-    if (Math.abs(dx) > 5) {
-      hasMovedRef.current = true;
-      setIsDragging(true);
-      const dragFactor = isMobile ? 150 : 230;
+    const dy = e.clientY - startYRef.current;
+
+    if (!hasMovedRef.current) {
+      if (Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(dy)) {
+        hasMovedRef.current = true;
+        setIsDragging(true);
+      } else if (Math.abs(dy) > 8 && Math.abs(dy) > Math.abs(dx)) {
+        isDraggingRef.current = false;
+        return;
+      }
+    }
+
+    if (hasMovedRef.current) {
+      const dragFactor = isMobile ? 160 : 240;
       const nextTarget = startTargetRef.current - dx / dragFactor;
       targetFloatRef.current = Math.min(TOTAL - 1, Math.max(0, nextTarget));
       if (wakeRef.current) wakeRef.current();
@@ -227,6 +231,14 @@ export default function ProjectsShowcase() {
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
+    try {
+      if ((e.currentTarget as HTMLElement).hasPointerCapture(e.pointerId)) {
+        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+      }
+    } catch {
+      // ignore
+    }
+
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
     setIsDragging(false);
@@ -241,7 +253,6 @@ export default function ProjectsShowcase() {
         hasMovedRef.current = false;
       }, 120);
     } else {
-      // It was a direct click on a card!
       const targetCard = (e.target as HTMLElement).closest<HTMLElement>(
         "[data-card-idx]"
       );
@@ -258,136 +269,115 @@ export default function ProjectsShowcase() {
     }
   };
 
-  const onPointerCancel = () => {
+  const onPointerCancel = (e: React.PointerEvent) => {
+    try {
+      if ((e.currentTarget as HTMLElement).hasPointerCapture(e.pointerId)) {
+        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+      }
+    } catch {
+      // ignore
+    }
     if (isDraggingRef.current) {
       isDraggingRef.current = false;
       setIsDragging(false);
     }
   };
 
-  // Card click fallback
   const handleCardClick = (idx: number) => {
     if (hasMovedRef.current) return;
-    if (idx === activeIndex) {
+    if (idx === activeIndexRef.current) {
       setModalProject(SHOWCASE_PROJECTS[idx]);
     } else {
       goToProject(idx);
     }
   };
 
-  // Continuous, robust document scroll listener driven by Lenis
-  useEffect(() => {
-    const onScroll = () => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-      const scrollableDistance = rect.height - window.innerHeight;
-      if (scrollableDistance <= 0) return;
-
-      if (rect.top > 0) {
-        targetFloatRef.current = 0;
-        if (wakeRef.current) wakeRef.current();
-        return;
-      }
-
-      const scrolled = Math.min(Math.max(-rect.top, 0), scrollableDistance);
-      const progress = scrolled / scrollableDistance;
-      const continuousTarget = progress * (TOTAL - 1);
-
-      targetFloatRef.current = Math.min(
-        TOTAL - 1,
-        Math.max(0, continuousTarget)
-      );
-      if (wakeRef.current) wakeRef.current();
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       id="case-studies"
-      className="relative bg-white"
-      style={{ height: `${TOTAL * VH_PER_PROJECT + 60}vh` }}
+      className="relative bg-white py-20 sm:py-24 md:py-28 overflow-hidden select-none isolate border-b border-black/[0.06]"
     >
-      {/* Pinned Sticky Stage with Clean White Background */}
+      {/* Subtle Brand Dot Grid matching site canvas */}
       <div
-        ref={containerRef}
-        className="sticky top-0 h-[100dvh] w-full flex flex-col justify-between overflow-hidden select-none isolate bg-white"
-      >
-        {/* Interactive Floating ASCII Clouds Canvas */}
-        <AsciiClouds />
+        className="pointer-events-none select-none absolute inset-0 z-0 opacity-40"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.08) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
+        aria-hidden="true"
+      />
 
+      <div className="relative z-20 flex flex-col items-center">
         {/* Section Heading */}
-        <div className="relative z-20 wrap pt-5 sm:pt-7 flex-shrink-0 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium leading-[1.1] tracking-[-0.03em] text-black m-0 reveal-on-scroll">
-            Shipped so far
+        <div className="wrap flex-shrink-0 text-center mb-10 sm:mb-12">
+          <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3 reveal-on-scroll">
+            Selected Work
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0 reveal-on-scroll">
+            Shipped so far.
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm leading-[1.55] text-black/55 font-normal mx-auto reveal-on-scroll reveal-delay-100">
-            Selected platforms, digital products, and experiences engineered for impact.
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal mx-auto max-w-[560px] reveal-on-scroll reveal-delay-100">
+            Built for real impact — selected platforms, digital products, and experiences.
           </p>
         </div>
 
-        {/* 3D Arc Carousel + Center-Aligned Description */}
-        <div className="relative z-20 flex-1 min-h-0 w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6">
-          {/* 3D Circular Arc Carousel with Mouse Drag Rotation */}
+        {/* Flat Interactive Project Carousel Stage */}
+        <div className="relative w-full flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6">
+          {/* Horizontal Flat Image Rail */}
           <div
             ref={cardsContainerRef}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
             onPointerCancel={onPointerCancel}
-            className={`relative w-full flex items-center justify-center flex-shrink-0 touch-none select-none ${
+            className={`relative w-full flex items-center justify-center flex-shrink-0 select-none ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             style={{
-              height: `${cardHeight + (isMobile ? 32 : 52)}px`,
+              height: `${cardHeight + 16}px`,
+              touchAction: "pan-y",
             }}
           >
             {SHOWCASE_PROJECTS.map((proj, idx) => (
-              <button
-                key={proj.id}
-                ref={(el) => {
-                  if (el) cardsRef.current[idx] = el;
-                }}
-                type="button"
-                data-card-idx={idx}
-                onClick={() => handleCardClick(idx)}
-                aria-label={`View project ${proj.number}: ${proj.title}`}
-                className="group absolute top-0 left-1/2 overflow-hidden cursor-pointer hover:cursor-zoom-in focus-visible:outline-2 focus-visible:outline-black will-change-[transform,opacity] bg-transparent border-0 shadow-none"
-                style={{
-                  width: `${cardWidth}px`,
-                  height: `${cardHeight}px`,
-                  marginLeft: `${-cardWidth / 2}px`,
-                  borderRadius: "10px",
-                  border: "none",
-                  boxShadow: "none",
-                } as React.CSSProperties}
-              >
-                <Image
-                  src={proj.mockup}
-                  alt={`${proj.title} MacBook Pro mockup`}
-                  fill
-                  sizes="(max-width: 640px) 400px, 600px"
-                  quality={70}
-                  className="object-cover pointer-events-none select-none"
-                  priority={idx <= 2}
-                />
+                <button
+                  key={proj.id}
+                  ref={(el) => {
+                    if (el) cardsRef.current[idx] = el;
+                  }}
+                  type="button"
+                  data-card-idx={idx}
+                  onClick={() => handleCardClick(idx)}
+                  aria-label={`View project ${proj.number}: ${proj.title}`}
+                  className="group absolute top-2 left-1/2 overflow-hidden cursor-pointer hover:cursor-zoom-in focus-visible:outline-2 focus-visible:outline-black will-change-[transform,opacity] bg-transparent border-0 p-0"
+                  style={{
+                    width: `${cardWidth}px`,
+                    height: `${cardHeight}px`,
+                    marginLeft: `${-cardWidth / 2}px`,
+                    borderRadius: "14px",
+                  }}
+                >
+                  <Image
+                    src={proj.image}
+                    alt={`${proj.title} preview`}
+                    fill
+                    sizes="(max-width: 640px) 320px, 520px"
+                    quality={75}
+                    className="object-cover object-top pointer-events-none select-none"
+                    priority={idx <= 2}
+                  />
 
-                {/* Click to enlarge floating badge */}
-                <div className="pointer-events-none absolute bottom-2.5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1.5 px-3 py-1 rounded-[12px] bg-black/80 backdrop-blur-md text-white text-[11px] font-medium shadow-md whitespace-nowrap z-30">
-                  <ZoomIn className="w-3.5 h-3.5 text-white/90" />
-                  <span>Click to enlarge</span>
-                </div>
-              </button>
+                  {/* Subtle Flat Enlarge Pill on Hover */}
+                  <div className="pointer-events-none absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 border border-black/[0.12] text-[#202124] text-[11px] font-medium whitespace-nowrap z-30">
+                    <ZoomIn className="w-3 h-3 text-[#202124]" />
+                    <span>Preview</span>
+                  </div>
+                </button>
             ))}
           </div>
 
-          {/* Active Project Description — directional slide transition */}
-          <div className="relative z-30 w-full max-w-[540px] mt-5 sm:mt-7 text-center">
+          {/* Active Project Description */}
+          <div className="relative z-30 w-full max-w-[540px] mt-7 sm:mt-9 text-center">
             <div className="grid-stack w-full">
               {SHOWCASE_PROJECTS.map((proj, idx) => {
                 const isCurrent = idx === activeIndex;
@@ -403,26 +393,31 @@ export default function ProjectsShowcase() {
                     key={proj.id}
                     className={`w-full will-change-[transform,opacity] ${animClass}`}
                   >
-                    {/* Index Pill — centered */}
-                    <div className="flex items-center justify-center mb-2.5">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[14px] bg-black text-white text-[11px] sm:text-xs font-medium tabular-nums shadow-[0_2px_10px_rgba(0,0,0,0.12)]">
-                        <span>{proj.number}</span>
-                        <span className="text-white/35">/</span>
-                        <span className="text-white/65">
-                          {String(TOTAL).padStart(2, "0")}
+                    {/* Index & Category Pill */}
+                    <div className="flex items-center justify-center mb-3">
+                      <span
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-medium tabular-nums border border-black/[0.08]"
+                        style={{ background: "#f2f2f0", color: "#202124" }}
+                      >
+                        <span
+                          className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold"
+                          style={{ background: "#d2fb95", color: "#202124" }}
+                        >
+                          {proj.number} / {String(TOTAL).padStart(2, "0")}
                         </span>
+                        <span className="text-[#51565c]">{proj.category}</span>
                       </span>
                     </div>
 
                     {/* Project Title */}
-                    <h2 className="text-xl sm:text-[26px] font-medium leading-[1.12] tracking-[-0.03em] text-black m-0 text-center">
+                    <h3 className="text-xl sm:text-[26px] font-medium leading-[1.12] tracking-[-0.03em] text-[#202124] m-0 text-center">
                       {proj.title}
-                    </h2>
+                    </h3>
 
                     {/* Problem & Solution */}
-                    <div className="mt-3 sm:mt-3.5 pt-3 border-t border-black/[0.07] space-y-2.5 text-center max-w-[460px] mx-auto">
+                    <div className="mt-4 pt-3.5 border-t border-black/[0.07] space-y-2.5 text-center max-w-[460px] mx-auto">
                       <div>
-                        <span className="block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-black/40 mb-0.5">
+                        <span className="block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] text-black/40 mb-0.5">
                           Problem
                         </span>
                         <p className="text-xs sm:text-[13px] leading-[1.6] text-black/60 font-normal m-0">
@@ -431,10 +426,10 @@ export default function ProjectsShowcase() {
                       </div>
 
                       <div>
-                        <span className="block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.12em] text-black/85 mb-0.5">
+                        <span className="block text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] text-[#202124] mb-0.5">
                           Solution
                         </span>
-                        <p className="text-xs sm:text-[13px] leading-[1.6] text-black/90 font-normal m-0">
+                        <p className="text-xs sm:text-[13px] leading-[1.6] text-black/85 font-normal m-0">
                           {proj.solution}
                         </p>
                       </div>
@@ -444,85 +439,115 @@ export default function ProjectsShowcase() {
               })}
             </div>
 
-            {/* View Portfolio Button — exact match to Hero CTA button styling */}
-            <div className="mt-4 sm:mt-5 flex justify-center">
+            {/* View Portfolio Button */}
+            <div className="mt-5 sm:mt-6 flex justify-center">
               <button
                 type="button"
                 onClick={() => setModalProject(SHOWCASE_PROJECTS[activeIndex])}
-                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-[14px] bg-black hover:bg-neutral-900 text-white font-semibold text-[15px] transition-colors cursor-pointer focus-visible:outline-3 focus-visible:outline-black"
+                className="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-full bg-[#202124] hover:bg-neutral-800 text-white font-semibold text-[14px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
                 aria-label={`View portfolio for ${SHOWCASE_PROJECTS[activeIndex]?.title || "project"}`}
               >
-                <span>View portfolio</span>
+                <span>Open full preview</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Bottom Project Sequence Dot Rail */}
-        <div className="relative z-20 wrap pb-3 sm:pb-5 flex-shrink-0">
-          <div
-            className="w-full max-w-2xl mx-auto flex items-center gap-1.5"
-            role="tablist"
-            aria-label="Project sequence"
-          >
-            {SHOWCASE_PROJECTS.map((proj, idx) => {
-              const isActive = idx === activeIndex;
-              const isPast = idx < activeIndex;
-              return (
-                <button
-                  key={proj.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-label={`Go to project ${proj.number}: ${proj.title}`}
-                  onClick={() => goToProject(idx)}
-                  className="group/dot flex-1 py-2 cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
-                >
-                  <span
-                    className={`block h-[3px] rounded-full transition-colors duration-300 ease-out ${
-                      isActive
-                        ? "bg-black"
-                        : isPast
-                        ? "bg-black/25 group-hover/dot:bg-black/50"
-                        : "bg-black/8 group-hover/dot:bg-black/20"
-                    }`}
+        {/* Unified Flat Navigation Pill & Progress Scrubber */}
+        <div className="relative z-20 wrap mt-8 sm:mt-10 flex flex-col items-center gap-2.5">
+          <div className="inline-flex items-center gap-3 rounded-full bg-[#f2f2f0] border border-black/[0.08] p-1.5">
+            <button
+              type="button"
+              onClick={() => goToProject(activeIndexRef.current - 1)}
+              disabled={activeIndex === 0}
+              aria-label="Previous project"
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
+                activeIndex === 0
+                  ? "bg-transparent text-black/25 cursor-default"
+                  : "bg-white text-[#202124] border border-black/[0.09] hover:bg-[#202124] hover:text-white cursor-pointer"
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4 stroke-[2]" />
+            </button>
+
+            <div className="flex items-center gap-3 px-1">
+              {/* Interactive continuous progress track */}
+              <div
+                className="relative w-[140px] sm:w-[220px] h-[5px] rounded-full bg-black/[0.08] overflow-hidden flex"
+                role="tablist"
+                aria-label="Project sequence"
+              >
+                <div
+                  className="pointer-events-none absolute inset-y-0 left-0 rounded-full transition-[width] duration-300 ease-out"
+                  style={{
+                    width: `${Math.round(((activeIndex + 1) / TOTAL) * 100)}%`,
+                    background: "#62abe0",
+                  }}
+                />
+                {SHOWCASE_PROJECTS.map((proj, idx) => (
+                  <button
+                    key={proj.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={idx === activeIndex}
+                    aria-label={`Go to project ${proj.number}: ${proj.title}`}
+                    onClick={() => goToProject(idx)}
+                    className="relative z-10 flex-1 h-full cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
                   />
-                </button>
-              );
-            })}
+                ))}
+              </div>
+
+              <span className="text-[11px] font-medium text-[#51565c] tabular-nums pr-0.5 select-none">
+                {String(activeIndex + 1).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => goToProject(activeIndexRef.current + 1)}
+              disabled={activeIndex === TOTAL - 1}
+              aria-label="Next project"
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
+                activeIndex === TOTAL - 1
+                  ? "bg-transparent text-black/25 cursor-default"
+                  : "bg-white text-[#202124] border border-black/[0.09] hover:bg-[#202124] hover:text-white cursor-pointer"
+              }`}
+            >
+              <ChevronRight className="w-4 h-4 stroke-[2]" />
+            </button>
+          </div>
+
+          <div className="text-[11px] text-black/40 text-center select-none">
+            Drag, click cards, or use arrows to browse
           </div>
         </div>
       </div>
 
-      {/* Pure Image Enlarged Lightbox — Zero Card Containers */}
+      {/* Pure Image Lightbox Preview */}
       {modalProject && (
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 md:p-12 bg-black/85 backdrop-blur-md cursor-zoom-out select-none transition-opacity duration-200 animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 md:p-12 bg-black/80 cursor-zoom-out select-none"
           onClick={() => setModalProject(null)}
         >
-          {/* Subtle Close Button in Top-Right */}
           <button
             type="button"
             onClick={() => setModalProject(null)}
-            className="absolute top-5 right-5 sm:top-7 sm:right-7 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer z-50 focus:outline-none"
+            className="absolute top-5 right-5 sm:top-7 sm:right-7 w-10 h-10 rounded-full bg-white text-[#202124] hover:bg-[#f2f2f0] flex items-center justify-center transition-colors cursor-pointer z-50 focus:outline-none"
             aria-label="Close enlarged preview"
           >
             <X className="w-5 h-5" />
           </button>
 
-          {/* Pure Image Only — Less Rounded, Zero Shadow & Zero Border */}
-          <div
-            className="relative w-full max-w-5xl max-h-[86vh] aspect-[4/3] rounded-[12px] sm:rounded-[14px] overflow-hidden flex items-center justify-center pointer-events-none"
-          >
+          <div className="relative w-full max-w-5xl max-h-[84vh] aspect-[16/10] rounded-[14px] overflow-hidden pointer-events-none">
             <Image
-              src={modalProject.mockup}
+              src={modalProject.image}
               alt={modalProject.title}
               fill
-              sizes="(max-width: 1024px) 96vw, 1300px"
-              className="object-cover select-none"
+              sizes="(max-width: 1024px) 96vw, 1200px"
+              className="object-cover object-top select-none"
               priority
               unoptimized
             />

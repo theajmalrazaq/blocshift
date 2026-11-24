@@ -1,23 +1,14 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import {
-  ArrowRight,
-  Terminal,
-  Sparkles,
-  Layers,
-  BarChart3,
-  Zap,
-  CheckCircle2,
-} from "lucide-react";
-import {
-  CodeMatrixVisualizer,
-  NeuralAgentVisualizer,
-  DesignGridVisualizer,
-  WaveformVisualizer,
-  TelemetryVisualizer,
-} from "./ServicesCanvases";
+  Visual01WebEngineering,
+  Visual02AIAgents,
+  Visual03DesignSystems,
+  Visual04LandingPages,
+  Visual05Telemetry,
+} from "./ServicesVisuals";
 
 interface ServicesSectionProps {
   onOpenContact?: () => void;
@@ -29,8 +20,7 @@ interface ServiceCardData {
   category: string;
   title: string;
   description: string;
-  icon: React.ElementType;
-  visualizer: React.ComponentType;
+  visual: React.ReactNode;
   specs: string[];
   benefit: string;
   gradient: string;
@@ -45,8 +35,7 @@ const SERVICES_DATA: ServiceCardData[] = [
     title: "Web & Platform Engineering",
     description:
       "Full-stack web applications and scalable platforms engineered for sub-second performance, high reliability, and seamless user experiences across every screen.",
-    icon: Terminal,
-    visualizer: CodeMatrixVisualizer,
+    visual: <Visual01WebEngineering />,
     specs: [
       "Custom web applications & portals",
       "Headless e-commerce & APIs",
@@ -64,8 +53,7 @@ const SERVICES_DATA: ServiceCardData[] = [
     title: "AI Agents & Workflow Automation",
     description:
       "Custom autonomous AI agents, intelligent scrapers, and background pipelines that connect directly into your tools to eliminate repetitive manual overhead.",
-    icon: Sparkles,
-    visualizer: NeuralAgentVisualizer,
+    visual: <Visual02AIAgents />,
     specs: [
       "Autonomous multi-agent workflows",
       "Automated scraping & data ingestion",
@@ -73,7 +61,7 @@ const SERVICES_DATA: ServiceCardData[] = [
       "24/7 background task execution",
     ],
     benefit: "24/7 Autonomous",
-    gradient: "from-[#ede9fe]/80 via-[#f7f5ff]/60 to-white",
+    gradient: "from-[#f2f2f0]/90 via-[#f8f8f7]/60 to-white",
     colSpan: "col-span-1 md:col-span-1 lg:col-span-5",
   },
   {
@@ -83,8 +71,7 @@ const SERVICES_DATA: ServiceCardData[] = [
     title: "Product Design & Design Systems",
     description:
       "Human-centered interface design and scalable Figma component libraries. We bridge the gap between creative visual craft and structured design-to-code execution.",
-    icon: Layers,
-    visualizer: DesignGridVisualizer,
+    visual: <Visual03DesignSystems />,
     specs: [
       "End-to-end UX/UI interface design",
       "Multi-platform Figma design systems",
@@ -102,8 +89,7 @@ const SERVICES_DATA: ServiceCardData[] = [
     title: "High-Converting Landing Pages",
     description:
       "Editorial storytelling paired with conversion architecture. Engineered to establish instant credibility, communicate value within seconds, and turn visitors into pipeline.",
-    icon: Zap,
-    visualizer: WaveformVisualizer,
+    visual: <Visual04LandingPages />,
     specs: [
       "High-impact value messaging & copy",
       "Frictionless lead generation funnels",
@@ -111,7 +97,7 @@ const SERVICES_DATA: ServiceCardData[] = [
       "Built-in conversion & event tracking",
     ],
     benefit: "High Conversion",
-    gradient: "from-[#fee2e2]/60 via-[#fef6f6]/60 to-white",
+    gradient: "from-[#f2f2f0]/90 via-[#f8f8f7]/60 to-white",
     colSpan: "col-span-1 md:col-span-1 lg:col-span-6",
   },
   {
@@ -121,8 +107,7 @@ const SERVICES_DATA: ServiceCardData[] = [
     title: "Executive Dashboards & Telemetry",
     description:
       "Transforming complex, fragmented operational data into clear, actionable decision interfaces. Real-time telemetry, visual KPIs, and custom portals built for fast leadership decisions.",
-    icon: BarChart3,
-    visualizer: TelemetryVisualizer,
+    visual: <Visual05Telemetry />,
     specs: [
       "Live KPI & operational telemetry",
       "Intuitive business data visualization",
@@ -155,12 +140,10 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
       <div className="wrap relative z-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center max-w-[780px] mx-auto mb-14 sm:mb-20">
-          {/* Heading */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-black m-0">
             Engineered for speed. Built for craft.
           </h2>
 
-          {/* Subtext */}
           <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[620px] m-0">
             From high-performance web platforms and autonomous AI systems to intuitive
             product design and high-converting funnels — we turn complex challenges into shipped reality.
@@ -170,7 +153,6 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
         {/* Pixel-Infused Bento Grid with Soft Gradients */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-6">
           {SERVICES_DATA.map((service) => {
-            const VisualizerComponent = service.visualizer;
             const isFullWidthBento = service.id === "telemetry-dashboards";
 
             return (
@@ -227,24 +209,18 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
                       </div>
                     </div>
 
-                    {/* Right Panoramic Visualizer */}
-                    <div className="w-full lg:w-[48%] h-[150px] sm:h-[180px] lg:h-[220px] rounded-[16px] overflow-hidden relative flex-shrink-0">
-                      <VisualizerComponent />
+                    {/* Right Panoramic Visual */}
+                    <div className="w-full lg:w-[46%] h-[180px] sm:h-[215px] rounded-[16px] overflow-hidden relative flex-shrink-0">
+                      {service.visual}
                     </div>
                   </div>
                 ) : (
                   /* Standard Bento Card Layout */
                   <div className="flex flex-col justify-between p-5 sm:p-6 h-full">
                     <div>
-                      {/* Interactive Canvas Visualizer */}
-                      <div
-                        className={`relative w-full rounded-[14px] overflow-hidden mb-5 ${
-                          service.id === "web-engineering"
-                            ? "h-[135px] sm:h-[150px]"
-                            : "h-[125px] sm:h-[135px]"
-                        }`}
-                      >
-                        <VisualizerComponent />
+                      {/* Visual Slot */}
+                      <div className="relative w-full h-[155px] sm:h-[180px] rounded-[14px] overflow-hidden mb-5">
+                        {service.visual}
                       </div>
 
                       {/* Title */}
@@ -291,44 +267,6 @@ export default function ServicesSection({ onOpenContact }: ServicesSectionProps)
               </div>
             );
           })}
-        </div>
-
-        {/* Bottom Command-Center Banner matching Hero/Showcase CTA style */}
-        <div className="mt-14 sm:mt-18 p-8 sm:p-10 rounded-[24px] bg-gradient-to-r from-[#0d131a] via-[#161f2c] to-[#0d131a] text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl border border-white/10">
-          <div className="max-w-[540px]">
-            {/* Terminal prompt pill */}
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-[#d2fb95] mb-2.5">
-              <span>$</span>
-              <span>blocshift --deploy-project</span>
-              <span className="w-1.5 h-3 bg-[#d2fb95] animate-pulse" />
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl font-medium tracking-[-0.03em] leading-tight m-0 text-white">
-              Have a problem worth solving?
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/70 m-0">
-              We take on a limited number of select builds every quarter. Talk directly
-              with our engineering and design leads.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3.5 flex-shrink-0">
-            <button
-              type="button"
-              onClick={onOpenContact}
-              className="group inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-[14px] bg-white hover:bg-neutral-100 text-black font-semibold text-[15px] transition-colors cursor-pointer focus-visible:outline-3 focus-visible:outline-white"
-            >
-              <span>Book a Strategy Call</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </button>
-
-            <Link
-              href="#case-studies"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[14px] bg-white/10 hover:bg-white/15 text-white font-semibold text-[15px] transition-colors focus-visible:outline-3 focus-visible:outline-white"
-            >
-              <span>Explore Shipped Work</span>
-            </Link>
-          </div>
         </div>
       </div>
     </section>

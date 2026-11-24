@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Send, CheckCircle2, Sparkles } from "lucide-react";
+import { X, Send, CheckCircle2 } from "lucide-react";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -73,7 +73,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
         <div className="mb-6">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--lime)] text-[var(--lime-ink)] text-xs font-bold mb-2">
-            <Sparkles className="w-3 h-3" />
             <span>Direct Studio Access</span>
           </div>
           <h2

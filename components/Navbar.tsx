@@ -59,16 +59,28 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           {/* Center: Desktop Navigation Links */}
           <div className="hidden sm:flex items-center gap-5 sm:gap-6">
             <Link
+              href="#case-studies"
+              className="text-zinc-400 hover:text-white text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-white"
+            >
+              Projects
+            </Link>
+            <Link
               href="#services"
               className="text-zinc-400 hover:text-white text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-white"
             >
               Services
             </Link>
             <Link
-              href="#case-studies"
+              href="#process"
               className="text-zinc-400 hover:text-white text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-white"
             >
-              Projects
+              Process
+            </Link>
+            <Link
+              href="#faq"
+              className="text-zinc-400 hover:text-white text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-white"
+            >
+              FAQ
             </Link>
           </div>
 
@@ -103,6 +115,13 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
           <div className="sm:hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[calc(100vw-32px)] max-w-[340px] pointer-events-auto">
             <div className="p-4 bg-black/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex flex-col gap-3">
               <Link
+                href="#case-studies"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-4 py-2.5 rounded-xl text-base font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                Projects
+              </Link>
+              <Link
                 href="#services"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-4 py-2.5 rounded-xl text-base font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
@@ -110,11 +129,18 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
                 Services
               </Link>
               <Link
-                href="#case-studies"
+                href="#process"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-4 py-2.5 rounded-xl text-base font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
               >
-                Projects
+                Process
+              </Link>
+              <Link
+                href="#faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-4 py-2.5 rounded-xl text-base font-semibold text-zinc-300 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                FAQ
               </Link>
               <button
                 type="button"

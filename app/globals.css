@@ -121,6 +121,30 @@
   animation: cloud-drift-reverse 28s ease-in-out infinite;
 }
 
+@keyframes agent-wave {
+  0%, 100% {
+    transform: scaleY(0.45);
+  }
+  35% {
+    transform: scaleY(1);
+  }
+  70% {
+    transform: scaleY(0.6);
+  }
+}
+
+.animate-agent-wave {
+  transform-origin: center center;
+  animation: agent-wave var(--wave-duration, 1.4s) ease-in-out var(--wave-delay, 0s) infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-agent-wave {
+    animation: none;
+  }
+}
+
 @keyframes hero-ascii-loop {
   0%, 100% {
     transform: translate3d(0, 0, 0) scale(1);
@@ -194,6 +218,64 @@
   right: -9vw;
   top: -3vh;
   opacity: 0.95;
+}
+
+/* Footer Sky Gradient & Clouds (symmetrical bookend to Hero) */
+.footer-sky-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--page) 0%,
+    #dcebf5 8%,
+    #9ac7e8 16%,
+    #62abe0 30%,
+    #529fd8 100%
+  );
+}
+
+@supports (background: linear-gradient(in oklab, #000, #fff)) {
+  .footer-sky-bg {
+    background: linear-gradient(
+      180deg in oklab,
+      var(--page) 0%,
+      #dcebf5 8%,
+      #9ac7e8 16%,
+      #62abe0 30%,
+      #529fd8 100%
+    );
+  }
+}
+
+.footer-sky-bg::before,
+.footer-sky-bg::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background-image: url("/images/cloud-2.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.footer-sky-bg::before {
+  width: clamp(240px, 32vw, 480px);
+  height: 260px;
+  left: -6vw;
+  top: -20px;
+  opacity: 0.6;
+  transform: scaleX(-1);
+}
+
+.footer-sky-bg::after {
+  width: clamp(300px, 42vw, 640px);
+  height: 320px;
+  right: -8vw;
+  top: 10px;
+  opacity: 0.7;
 }
 
 .grid-stack {
