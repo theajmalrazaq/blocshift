@@ -397,12 +397,12 @@ export function LandingPagesSection({ onOpenContact }: SectionProps) {
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             04 · High-Converting Landing Pages
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] m-0">
-            <span className="text-[#202124]">Clarity that converts. </span>
-            <span className="text-black/45">
-              Editorial pages built to earn trust in five seconds and turn traffic into pipeline.
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
+            Clarity that converts.
           </h2>
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[580px] mx-auto m-0">
+            Editorial pages built to earn trust in five seconds and turn traffic into pipeline.
+          </p>
         </div>
 
         {/* Mode Toggle */}
@@ -624,12 +624,12 @@ export function TelemetrySection({ onOpenContact }: SectionProps) {
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             05 · Executive Dashboards &amp; Telemetry
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] m-0">
-            <span className="text-[#202124]">One source of truth. </span>
-            <span className="text-black/45">
-              Live revenue pacing, system health, and role-based KPIs in one calm view.
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
+            One source of truth.
           </h2>
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[560px] mx-auto m-0">
+            Live revenue pacing, system health, and role-based KPIs in one calm view.
+          </p>
         </div>
 
         {/* Interactive Telemetry Frame */}
