@@ -53,7 +53,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
         {/* Top Structured Footer Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 sm:pb-16 border-b border-white/20">
           {/* Brand Column */}
-          <div className="lg:col-span-5 reveal-on-scroll">
+          <div data-aos="fade-up" className="lg:col-span-5">
             <Link
               href="/"
               className="inline-flex items-center gap-2.5 text-white font-bold text-lg tracking-tight"
@@ -70,8 +70,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
             </Link>
 
             <p className="mt-3.5 text-sm sm:text-[15px] leading-[1.65] text-white/85 max-w-[360px] m-0">
-              We design and engineer web platforms, design systems, and
-              autonomous AI workflows built to ship fast and last.
+              We design and build web platforms, design systems, and custom AI agents that hold up in production.
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -94,7 +93,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
           </div>
 
           {/* Navigation Column */}
-          <div className="lg:col-span-3 lg:col-start-7 reveal-on-scroll reveal-delay-100">
+          <div data-aos="fade-up" data-aos-delay="80" className="lg:col-span-3 lg:col-start-7">
             <div className="text-[11px] uppercase tracking-[0.08em] text-white/65 mb-4">
               Explore
             </div>
@@ -113,7 +112,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
           </div>
 
           {/* Capabilities Column */}
-          <div className="lg:col-span-3 reveal-on-scroll reveal-delay-200">
+          <div data-aos="fade-up" data-aos-delay="140" className="lg:col-span-3">
             <div className="text-[11px] uppercase tracking-[0.08em] text-white/65 mb-4">
               Capabilities
             </div>
@@ -133,7 +132,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
         </div>
 
         {/* Big Interactive ASCII "BLOCSHIFT" Wordmark */}
-        <div className="py-10 sm:py-14 reveal-on-scroll">
+        <div data-aos="fade-up" data-aos-delay="100" className="py-10 sm:py-14">
           <FooterAsciiWordmark />
         </div>
 

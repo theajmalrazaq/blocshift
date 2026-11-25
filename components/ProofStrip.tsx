@@ -5,30 +5,30 @@ import React from "react";
 const METRICS = [
   {
     value: "25+",
-    label: "Products Shipped",
-    detail: "Platforms, flagships & AI tools",
+    label: "Products shipped",
+    detail: "Web apps, flagships, and AI tools",
   },
   {
-    value: "2–6 wks",
-    label: "Avg. Time to Launch",
-    detail: "Weekly staging builds, zero drift",
+    value: "Weekly",
+    label: "Staging releases",
+    detail: "Live links to test, never slide decks",
   },
   {
     value: "99+",
-    label: "Lighthouse Performance",
-    detail: "Sub-second loads & clean CWV",
+    label: "Core Web Vitals",
+    detail: "Fast page loads out of the box",
   },
   {
     value: "100%",
-    label: "Senior Builders",
-    detail: "Direct access to design & eng leads",
+    label: "Direct builders",
+    detail: "Work straight with the team shipping it",
   },
 ];
 
 const VERTICALS = [
   "SaaS & Developer Tools",
-  "Applied AI & Agents",
-  "Industrial & 3D Web",
+  "AI Agents & Workflows",
+  "3D & Industrial Web",
   "Fintech & Telemetry",
   "Real Estate & Commerce",
 ];
@@ -45,10 +45,11 @@ export default function ProofStrip() {
           {METRICS.map((metric, idx) => (
             <div
               key={metric.label}
-              className={`reveal-on-scroll ${
+              data-aos="fade-up"
+              data-aos-delay={idx * 70}
+              className={`${
                 idx > 0 ? "lg:pl-8" : ""
               } ${idx < METRICS.length - 1 ? "lg:pr-8" : ""}`}
-              style={{ transitionDelay: `${idx * 60}ms` }}
             >
               <div className="text-3xl sm:text-4xl font-medium tracking-[-0.04em] leading-none text-black">
                 {metric.value}
@@ -64,7 +65,11 @@ export default function ProofStrip() {
         </div>
 
         {/* Domains & Verticals Strip */}
-        <div className="mt-10 sm:mt-12 pt-6 border-t border-black/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-4 reveal-on-scroll">
+        <div
+          data-aos="fade-up"
+          data-aos-delay="100"
+          className="mt-10 sm:mt-12 pt-6 border-t border-black/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+        >
           <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 flex-shrink-0">
             Shipped across
           </span>

@@ -191,16 +191,15 @@ export default function ProcessSection({ onOpenContact }: ProcessSectionProps) {
 
       <div className="wrap relative z-10">
         {/* Section Heading */}
-        <div className="flex flex-col items-center text-center max-w-[760px] mx-auto mb-14 sm:mb-20">
-          <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3 reveal-on-scroll">
-            How We Work · The Sprint Cadence
+        <div data-aos="fade-up" className="flex flex-col items-center text-center max-w-[760px] mx-auto mb-14 sm:mb-20">
+          <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
+            How We Work
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0 reveal-on-scroll">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
             From brief to shipped.
           </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[600px] m-0 reveal-on-scroll reveal-delay-100">
-            Four clear phases, zero black boxes — scroll through each stage
-            or click any milestone to inspect how we take products from spec to launch.
+          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[560px] m-0">
+            Four focused phases with live staging builds and direct access to the people building your product.
           </p>
         </div>
 
@@ -457,15 +456,15 @@ export default function ProcessSection({ onOpenContact }: ProcessSectionProps) {
         </div>
 
         {/* Bottom Consultation Link */}
-        <div className="mt-12 sm:mt-16 text-center reveal-on-scroll">
+        <div data-aos="fade-up" className="mt-12 sm:mt-16 text-center">
           <p className="text-xs sm:text-sm text-black/55 m-0 inline-flex flex-wrap items-center justify-center gap-2">
-            <span>Have a specific deadline or technical constraint?</span>
+            <span>Working with a tight deadline or tricky stack?</span>
             <button
               type="button"
               onClick={onOpenContact}
               className="group inline-flex items-center gap-1 text-black font-semibold underline underline-offset-4 hover:text-black/75 transition-colors cursor-pointer"
             >
-              <span>Talk directly with our engineering leads</span>
+              <span>Talk directly with our leads</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </p>

@@ -13,7 +13,7 @@ export default function Navbar({ onOpenContact }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-30 w-full flex justify-center pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 z-40 w-full flex justify-center pointer-events-none">
       <div className="relative pointer-events-auto">
         <nav
           className="relative bg-black text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-b-[20px] flex items-center gap-4 sm:gap-7 md:gap-9 shadow-2xl"

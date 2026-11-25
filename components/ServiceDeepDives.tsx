@@ -24,7 +24,7 @@ const STACK_LAYERS: StackLayer[] = [
   {
     id: "edge",
     label: "Edge Routing & SSR",
-    summary: "Streaming server rendering, edge caching, and asset pipelines tuned for 99+ Core Web Vitals.",
+    summary: "Streaming server rendering, edge caching, and lean bundles built for instant loads.",
     badge: "12ms Global p95",
     rows: [
       { name: "Next.js App Router", spec: "Streaming SSR · Partial Prerendering", status: "Active", highlight: "lime" },
@@ -40,7 +40,7 @@ const STACK_LAYERS: StackLayer[] = [
   {
     id: "data",
     label: "Type-Safe API & Data",
-    summary: "End-to-end typed endpoints, relational schemas, row-level access controls, and predictable latency.",
+    summary: "Typed endpoints, clean relational schemas, and row-level security with no guesswork.",
     badge: "Zero Schema Drift",
     rows: [
       { name: "Typed API Contracts", spec: "Validated payloads · Shared types", status: "Strict", highlight: "lime" },
@@ -56,7 +56,7 @@ const STACK_LAYERS: StackLayer[] = [
   {
     id: "cicd",
     label: "CI/CD & Observability",
-    summary: "Automated preview environments on every PR, strict quality gates, and instant rollback safety.",
+    summary: "Preview links on every pull request, automated checks, and safe rollbacks.",
     badge: "Zero Downtime",
     rows: [
       { name: "Automated Test Suite", spec: "Typecheck · Lint · Playwright E2E", status: "Passed", highlight: "lime" },
@@ -81,19 +81,19 @@ export function WebEngineeringSection({ onOpenContact }: SectionProps) {
       className="relative py-20 sm:py-28 bg-white border-t border-black/[0.06]"
     >
       <div className="wrap">
-        <div className="max-w-[760px] mx-auto text-center mb-12 sm:mb-16">
+        <div data-aos="fade-up" className="max-w-[760px] mx-auto text-center mb-12 sm:mb-16">
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             02 · Web &amp; Platform Engineering
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            Sub-second by default.
+            Built for real speed.
           </h2>
-          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[560px] mx-auto m-0">
-            Full-stack platforms built for real traffic, not fragile demos.
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[540px] mx-auto m-0">
+            Full-stack web apps designed for fast loads, clean codebases, and heavy traffic.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+        <div data-aos="fade-up" data-aos-delay="80" className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           {/* Left Interactive Layer Selector */}
           <div className="lg:col-span-5 flex flex-col gap-3">
             {STACK_LAYERS.map((layer) => {
@@ -136,7 +136,7 @@ export function WebEngineeringSection({ onOpenContact }: SectionProps) {
                 onClick={onOpenContact}
                 className="group inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#202124] hover:text-black/70 transition-colors cursor-pointer"
               >
-                <span>Scope a platform build</span>
+                <span>Start a platform build</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
             </div>
@@ -228,22 +228,22 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
       className="relative py-20 sm:py-28 bg-white border-t border-black/[0.06]"
     >
       <div className="wrap">
-        <div className="max-w-[760px] mx-auto text-center mb-10 sm:mb-14">
+        <div data-aos="fade-up" className="max-w-[760px] mx-auto text-center mb-10 sm:mb-14">
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             03 · Product Design &amp; Design Systems
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            Craft meets system.
+            One system from Figma to code.
           </h2>
-          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[560px] mx-auto m-0">
-            Component libraries engineered to ship clean from Figma to code.
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[540px] mx-auto m-0">
+            Interfaces and component libraries your engineering team can ship without guesswork.
           </p>
         </div>
 
         {/* Interactive Controls Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-8">
           {/* Accent selector */}
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#f2f2f0] border border-black/[0.07] px-2.5 py-1">
+          <div className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full bg-[#f2f2f0] border border-black/[0.07] px-2 sm:px-2.5 py-1 whitespace-nowrap">
             <span className="text-[11px] text-[#51565c] px-1">Token</span>
             {(["lime", "sky", "ink"] as const).map((key) => {
               const active = accent === key;
@@ -255,7 +255,7 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
                   type="button"
                   onClick={() => setAccent(key)}
                   aria-label={`Select ${key} accent`}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 rounded-full px-2 sm:px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
                     active ? "bg-white text-[#202124]" : "text-[#51565c] hover:text-[#202124]"
                   }`}
                 >
@@ -270,7 +270,7 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
           </div>
 
           {/* Radius selector */}
-          <div className="inline-flex items-center gap-1 rounded-full bg-[#f2f2f0] border border-black/[0.07] px-2.5 py-1">
+          <div className="inline-flex items-center gap-1 rounded-full bg-[#f2f2f0] border border-black/[0.07] px-2 sm:px-2.5 py-1 whitespace-nowrap">
             <span className="text-[11px] text-[#51565c] px-1">Radius</span>
             {(["8px", "14px", "999px"] as const).map((r) => {
               const active = radius === r;
@@ -279,7 +279,7 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
                   key={r}
                   type="button"
                   onClick={() => setRadius(r)}
-                  className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors cursor-pointer ${
+                  className={`rounded-full px-2 sm:px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
                     active ? "bg-white text-[#202124]" : "text-[#51565c] hover:text-[#202124]"
                   }`}
                 >
@@ -291,7 +291,7 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
         </div>
 
         {/* Live Flat Component Specimen Stage */}
-        <div className="max-w-[780px] mx-auto rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-5 sm:p-7">
+        <div data-aos="fade-up" data-aos-delay="80" className="max-w-[780px] mx-auto rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-5 sm:p-7">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
             {/* Live Component Card */}
             <div
@@ -316,8 +316,8 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
                 </div>
 
                 <p className="text-[12px] leading-[1.6] text-[#51565c] m-0 mb-4">
-                  Every button, input, and surface inherits semantic tokens so
-                  product teams ship consistent UI across web and mobile.
+                  Every button, input, and card pulls from shared tokens so your
+                  web and mobile UI never drifts apart.
                 </p>
               </div>
 
@@ -393,15 +393,15 @@ export function LandingPagesSection({ onOpenContact }: SectionProps) {
       className="relative py-20 sm:py-28 bg-white border-t border-black/[0.06]"
     >
       <div className="wrap">
-        <div className="max-w-[760px] mx-auto text-center mb-10 sm:mb-14">
+        <div data-aos="fade-up" className="max-w-[760px] mx-auto text-center mb-10 sm:mb-14">
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             04 · High-Converting Landing Pages
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            Clarity that converts.
+            Say what you do in five seconds.
           </h2>
-          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[580px] mx-auto m-0">
-            Editorial pages built to earn trust in five seconds and turn traffic into pipeline.
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[560px] mx-auto m-0">
+            Clear positioning and focused pages built to turn visitors into booked calls.
           </p>
         </div>
 
@@ -411,7 +411,7 @@ export function LandingPagesSection({ onOpenContact }: SectionProps) {
             <button
               type="button"
               onClick={() => setMode("before")}
-              className={`px-4 py-1.5 rounded-full text-[12px] font-medium transition-colors cursor-pointer ${
+              className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-[12px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 !isAfter ? "bg-[#202124] text-white" : "text-[#51565c] hover:text-[#202124]"
               }`}
             >
@@ -420,7 +420,7 @@ export function LandingPagesSection({ onOpenContact }: SectionProps) {
             <button
               type="button"
               onClick={() => setMode("after")}
-              className={`px-4 py-1.5 rounded-full text-[12px] font-medium transition-colors cursor-pointer ${
+              className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-[12px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 isAfter ? "bg-[#202124] text-white" : "text-[#51565c] hover:text-[#202124]"
               }`}
             >
@@ -430,7 +430,7 @@ export function LandingPagesSection({ onOpenContact }: SectionProps) {
         </div>
 
         {/* Comparison Canvas */}
-        <div className="max-w-[820px] mx-auto rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-5 sm:p-7">
+        <div data-aos="fade-up" data-aos-delay="80" className="max-w-[820px] mx-auto rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-5 sm:p-7">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
             {/* Wireframe Slice */}
             <div className="md:col-span-7 rounded-xl bg-white border border-black/[0.08] p-5">
@@ -620,20 +620,20 @@ export function TelemetrySection({ onOpenContact }: SectionProps) {
       className="relative py-20 sm:py-28 bg-white border-t border-black/[0.06]"
     >
       <div className="wrap">
-        <div className="max-w-[760px] mx-auto text-center mb-10 sm:mb-14">
+        <div data-aos="fade-up" className="max-w-[760px] mx-auto text-center mb-10 sm:mb-14">
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             05 · Executive Dashboards &amp; Telemetry
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-[46px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            One source of truth.
+            See what matters at a glance.
           </h2>
-          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[560px] mx-auto m-0">
-            Live revenue pacing, system health, and role-based KPIs in one calm view.
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[540px] mx-auto m-0">
+            Live revenue pacing, system health, and team metrics in one place.
           </p>
         </div>
 
         {/* Interactive Telemetry Frame */}
-        <div className="max-w-[820px] mx-auto rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-5 sm:p-7">
+        <div data-aos="fade-up" data-aos-delay="80" className="max-w-[820px] mx-auto rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-5 sm:p-7">
           {/* Header Controls */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div className="inline-flex items-center gap-2">
@@ -753,7 +753,7 @@ export function TelemetrySection({ onOpenContact }: SectionProps) {
               onClick={onOpenContact}
               className="group inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#202124] hover:text-black/70 transition-colors cursor-pointer"
             >
-              <span>Design your executive dashboard</span>
+              <span>Build your internal dashboard</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </div>

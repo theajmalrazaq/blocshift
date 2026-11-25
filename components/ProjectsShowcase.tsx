@@ -310,15 +310,15 @@ export default function ProjectsShowcase() {
 
       <div className="relative z-20 flex flex-col items-center">
         {/* Section Heading */}
-        <div className="wrap flex-shrink-0 text-center mb-10 sm:mb-12">
-          <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3 reveal-on-scroll">
+        <div data-aos="fade-up" className="wrap flex-shrink-0 text-center mb-10 sm:mb-12">
+          <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             Selected Work
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0 reveal-on-scroll">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
             Shipped so far.
           </h2>
-          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal mx-auto max-w-[560px] reveal-on-scroll reveal-delay-100">
-            Built for real impact — selected platforms, digital products, and experiences.
+          <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal mx-auto max-w-[540px]">
+            Web platforms, landing pages, and digital products built for real customers.
           </p>
         </div>
 
@@ -365,6 +365,16 @@ export default function ProjectsShowcase() {
                     quality={75}
                     className="object-cover object-top pointer-events-none select-none"
                     priority={idx <= 2}
+                  />
+
+                  {/* Bottom White Fade Overlay */}
+                  <div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-[36%] z-20"
+                    style={{
+                      background:
+                        "linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.78) 42%, rgba(255, 255, 255, 0) 100%)",
+                    }}
+                    aria-hidden="true"
                   />
 
                   {/* Subtle Flat Enlarge Pill on Hover */}
@@ -447,7 +457,7 @@ export default function ProjectsShowcase() {
                 className="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-full bg-[#202124] hover:bg-neutral-800 text-white font-semibold text-[14px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
                 aria-label={`View portfolio for ${SHOWCASE_PROJECTS[activeIndex]?.title || "project"}`}
               >
-                <span>Open full preview</span>
+                <span>View full screen</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </button>
             </div>
@@ -519,7 +529,7 @@ export default function ProjectsShowcase() {
           </div>
 
           <div className="text-[11px] text-black/40 text-center select-none">
-            Drag, click cards, or use arrows to browse
+            Drag, click a preview, or use arrows to browse
           </div>
         </div>
       </div>

@@ -6,12 +6,19 @@ import { X, Send, CheckCircle2 } from "lucide-react";
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialService?: string;
 }
 
-export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export default function ContactModal({
+  isOpen,
+  onClose,
+  initialService,
+}: ContactModalProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [service, setService] = useState("Landing Pages");
+  const [service, setService] = useState(
+    initialService || "Web & Platform Engineering"
+  );
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
@@ -82,19 +89,19 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             Start your project
           </h2>
           <p className="text-sm text-[var(--muted)] mt-1">
-            Tell us about your problem and we’ll respond within 24 hours.
+            Tell us what you&apos;re building and we&apos;ll reply within 24 hours.
           </p>
         </div>
 
         {status === "success" ? (
           <div className="py-12 flex flex-col items-center text-center">
-            <CheckCircle2 className="w-14 h-14 text-emerald-500 mb-4 animate-bounce" />
+            <CheckCircle2 className="w-14 h-14 text-[#202124] mb-4" />
             <h3 className="text-xl font-bold text-[var(--ink)]">
-              Message Received!
+              Got it. We&apos;ll be in touch.
             </h3>
             <p className="text-sm text-[var(--muted)] mt-1 max-w-xs">
-              Thank you for reaching out. We will review your request and get back
-              to you right away.
+              One of our studio leads will review your note and get back to you
+              within 24 hours.
             </p>
           </div>
         ) : (
@@ -148,12 +155,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 onChange={(e) => setService(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-xl bg-[var(--page)] border border-[var(--line)] text-sm text-[var(--ink)] focus:outline-none focus:ring-2 focus:ring-[var(--ink)]"
               >
-                <option value="Email Design">Email Design &amp; Newsletters</option>
-                <option value="Landing Pages">Landing Pages &amp; Webflow/Next</option>
-                <option value="Social Systems">Social Media Post Systems</option>
-                <option value="Data Analytics">Data Analytics &amp; Dashboards</option>
-                <option value="AI Agents">AI Agents &amp; Automations</option>
-                <option value="Full Suite">Full Suite / Other</option>
+                <option value="AI Agents & Automation">AI Agents &amp; Automation</option>
+                <option value="Web & Platform Engineering">Web &amp; Platform Engineering</option>
+                <option value="Product Design & Design Systems">Product Design &amp; Design Systems</option>
+                <option value="High-Converting Landing Pages">High-Converting Landing Pages</option>
+                <option value="Executive Dashboards & Telemetry">Executive Dashboards &amp; Telemetry</option>
+                <option value="Full Product / Other">Full Product / Other</option>
               </select>
             </div>
 
@@ -162,7 +169,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 htmlFor="message"
                 className="block text-xs font-bold uppercase tracking-wider text-[var(--muted)] mb-1.5"
               >
-                Brief Overview
+                Project brief
               </label>
               <textarea
                 id="message"
@@ -170,7 +177,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Share your goals, timeline, or current bottlenecks..."
+                placeholder="Share what you're building, what stage you're in, and any key constraints..."
                 className="w-full px-4 py-2.5 rounded-xl bg-[var(--page)] border border-[var(--line)] text-sm text-[var(--ink)] placeholder:text-[var(--muted)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--ink)] resize-none"
               />
             </div>
@@ -182,7 +189,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             >
               <Send className="w-4 h-4" />
               <span>
-                {status === "submitting" ? "Sending..." : "Send Request"}
+                {status === "submitting" ? "Sending..." : "Send Brief"}
               </span>
             </button>
           </form>

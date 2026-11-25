@@ -10,7 +10,6 @@ interface Testimonial {
   role: string;
   company: string;
   initials: string;
-  gradient: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -18,34 +17,31 @@ const TESTIMONIALS: Testimonial[] = [
     id: "industrial-3d",
     metric: "2.4× Qualified RFQs",
     quote:
-      "Blocshift turned a dense, PDF-heavy catalog into an interactive web experience our enterprise buyers immediately understood. Every Friday there was a working staging build we could click through.",
+      "Blocshift turned a dense, PDF-heavy catalog into an interactive web app our enterprise buyers understood right away. Every week brought a working staging link we could click through.",
     author: "Marcus Vance",
     role: "VP of Product",
     company: "Industrial 3D Platform",
     initials: "MV",
-    gradient: "from-[#e8f4fc]/85 via-[#f4f9fd]/55 to-white",
   },
   {
     id: "ai-workflows",
-    metric: "40+ Hrs/Wk Automated",
+    metric: "40+ Hrs/Wk Saved",
     quote:
-      "Most agencies pitch slide decks about AI. Blocshift wired autonomous ingestion pipelines straight into our CRM and internal dashboard in under three weeks—and it has run quietly 24/7 since launch.",
+      "Most studios pitch decks about AI. Blocshift wired live ingestion workflows straight into our CRM and ops dashboard, and it has run quietly in production since day one.",
     author: "Elena Rostova",
     role: "Co-Founder & COO",
     company: "B2B Operations SaaS",
     initials: "ER",
-    gradient: "from-[#f2f2f0]/90 via-[#f8f8f7]/60 to-white",
   },
   {
     id: "design-engineering",
-    metric: "Shipped in 3 Weeks",
+    metric: "99+ Lighthouse",
     quote:
-      "Having the same senior team own both our Figma design system and the production Next.js codebase eliminated the usual handoff friction. Performance hit 99 on Lighthouse out of the gate.",
+      "Having the same dedicated team own both our Figma system and production Next.js repo wiped out handoff friction completely. We launched fast and hit 99 on Lighthouse out of the gate.",
     author: "Daniel Okafor",
     role: "Head of Engineering",
     company: "Fintech Telemetry Suite",
     initials: "DO",
-    gradient: "from-[#f1f5f9] via-[#f8fafc]/70 to-white",
   },
 ];
 
@@ -68,61 +64,66 @@ export default function TestimonialsSection() {
 
       <div className="wrap relative z-10">
         {/* Section Heading */}
-        <div className="flex flex-col items-center text-center max-w-[720px] mx-auto mb-14 sm:mb-20 reveal-on-scroll">
+        <div data-aos="fade-up" className="flex flex-col items-center text-center max-w-[720px] mx-auto mb-14 sm:mb-20">
           <span className="text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             Client Outcomes
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
             Trusted by teams that ship.
           </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[560px] m-0">
-            Proof in every release — founders and product leaders bring us in when craft, speed, and reliability have to land at once.
+          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[540px] m-0">
+            Founders and product leaders bring us in when craft, speed, and reliability all have to land together.
           </p>
         </div>
 
-        {/* 3-Column Editorial Testimonial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-          {TESTIMONIALS.map((item, idx) => (
-            <figure
-              key={item.id}
-              className={`reveal-on-scroll m-0 flex flex-col justify-between p-6 sm:p-7 rounded-[22px] bg-gradient-to-b ${item.gradient}`}
-              style={{
-                cornerShape: "squircle",
-                WebkitCornerShape: "squircle",
-                transitionDelay: `${idx * 70}ms`,
-              } as React.CSSProperties}
-            >
-              <div>
-                {/* Outcome Badge */}
-                <span className="inline-flex items-center px-2.5 py-1 rounded-[8px] bg-black/[0.04] border border-black/[0.06] text-[11px] font-medium text-black/75 mb-5">
-                  {item.metric}
-                </span>
+        {/* 3-Column Flat Testimonial Tray matching Service & Engagement UI */}
+        <div
+          data-aos="fade-up"
+          data-aos-offset="20"
+          data-aos-delay="80"
+          className="rounded-[22px] bg-[#f2f2f0] border border-black/[0.08] p-4 sm:p-5"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {TESTIMONIALS.map((item) => (
+              <figure
+                key={item.id}
+                className="m-0 flex flex-col justify-between p-6 sm:p-7 rounded-[16px] bg-white border border-black/[0.07]"
+              >
+                <div>
+                  {/* Outcome Badge */}
+                  <span
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold mb-5"
+                    style={{ background: "#d2fb95", color: "#202124" }}
+                  >
+                    {item.metric}
+                  </span>
 
-                {/* Quote */}
-                <blockquote className="m-0 text-sm sm:text-[15px] leading-[1.65] text-black/85 font-normal mb-7">
-                  &ldquo;{item.quote}&rdquo;
-                </blockquote>
-              </div>
+                  {/* Quote */}
+                  <blockquote className="m-0 text-sm sm:text-[15px] leading-[1.65] text-[#202124]/85 font-normal mb-7">
+                    &ldquo;{item.quote}&rdquo;
+                  </blockquote>
+                </div>
 
-              {/* Author Block */}
-              <figcaption className="flex items-center gap-3 pt-4 border-t border-black/[0.07] mt-auto">
-                <div
-                  className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-[11px] font-semibold flex-shrink-0"
-                  aria-hidden="true"
-                >
-                  {item.initials}
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[13px] font-semibold text-black leading-snug">
-                    {item.author}
+                {/* Author Block */}
+                <figcaption className="flex items-center gap-3 pt-4 border-t border-black/[0.07] mt-auto">
+                  <div
+                    className="w-9 h-9 rounded-full bg-[#202124] text-white flex items-center justify-center text-[11px] font-semibold flex-shrink-0"
+                    aria-hidden="true"
+                  >
+                    {item.initials}
                   </div>
-                  <div className="text-[12px] text-black/55 leading-snug truncate">
-                    {item.role} · {item.company}
+                  <div className="min-w-0">
+                    <div className="text-[13px] font-semibold text-[#202124] leading-snug">
+                      {item.author}
+                    </div>
+                    <div className="text-[12px] text-[#51565c] leading-snug truncate">
+                      {item.role} · {item.company}
+                    </div>
                   </div>
-                </div>
-              </figcaption>
-            </figure>
-          ))}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>

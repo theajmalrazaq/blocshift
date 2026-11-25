@@ -50,16 +50,27 @@ export default function Hero({ onOpenContact }: HeroProps) {
         <div className="relative w-full max-w-[780px] flex flex-col items-center justify-center text-center">
           {/* Hero Copy */}
           <div className="relative z-10 w-full flex flex-col items-center">
-            <h1 className="text-[42px] sm:text-[52px] md:text-[64px] leading-[1.05] tracking-[-0.03em] font-medium text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.12)] reveal-on-scroll">
-              We design and code that solves problems
+            <h1
+              data-aos="fade-up"
+              className="text-[42px] sm:text-[52px] md:text-[64px] leading-[1.05] tracking-[-0.03em] font-medium text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.12)]"
+            >
+              Design and code for software that solves real problems
             </h1>
 
-            <p className="max-w-[600px] mt-3 mb-5 text-sm sm:text-[15px] leading-[1.65] text-white/90 font-normal reveal-on-scroll reveal-delay-100">
-              We bring together everything a business needs — from social
-              content and landing pages to data analysis and custom AI agents.
+            <p
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="max-w-[580px] mt-3 mb-5 text-sm sm:text-[15px] leading-[1.65] text-white/90 font-normal"
+            >
+              Web platforms, design systems, custom AI agents, and live dashboards.
+              One focused team from first sketch to launch.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3.5 pt-1 reveal-on-scroll reveal-delay-200">
+            <div
+              data-aos="fade-up"
+              data-aos-delay="200"
+              className="flex flex-wrap items-center justify-center gap-3.5 pt-1"
+            >
               <button
                 type="button"
                 onClick={onOpenContact}

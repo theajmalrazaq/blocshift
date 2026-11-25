@@ -31,8 +31,8 @@ const AGENT_SCENARIOS: AgentScenario[] = [
     reply: "On it!",
     actionLabel: "Approve & send 3 drafts",
     approvedLabel: "Sent · 3/3 followed up",
-    headline: "Every inbound demo, followed up.",
-    subcopy: "A tailored note for each prospect, in your voice. You approve and send.",
+    headline: "Every demo request followed up.",
+    subcopy: "Written in your voice for each prospect. Nothing sends until you approve.",
     draftPreview: [
       { target: "Maya Lin · Veloce", detail: "Pricing tier + sandbox invite", channel: "Email" },
       { target: "David Park · Kestrel", detail: "SOC2 spec & rollout plan", channel: "Email" },
@@ -46,8 +46,8 @@ const AGENT_SCENARIOS: AgentScenario[] = [
     reply: "On it!",
     actionLabel: "Approve & route 4 tickets",
     approvedLabel: "Routed · 4/4 triaged",
-    headline: "Zero inbox backlog by 9 AM.",
-    subcopy: "Every ticket tagged, matched to engineering owners, and drafted before standup.",
+    headline: "Zero overnight backlog.",
+    subcopy: "Tickets get tagged, routed to the right owner, and drafted before standup.",
     draftPreview: [
       { target: "#1402 · Invoice PDF timeout", detail: "Escalated to Billing owner", channel: "Linear" },
       { target: "#1405 · SSO callback mismatch", detail: "Drafted fix guide + patch link", channel: "Intercom" },
@@ -61,8 +61,8 @@ const AGENT_SCENARIOS: AgentScenario[] = [
     reply: "On it!",
     actionLabel: "Approve & sync 12 records",
     approvedLabel: "Synced · 12/12 updated",
-    headline: "Clean data across every tool.",
-    subcopy: "Background agents scrape, enrich, and sync records into your CRM automatically.",
+    headline: "Every tool stays in sync.",
+    subcopy: "New signups get enriched and logged in your CRM without manual spreadsheets.",
     draftPreview: [
       { target: "12 new workspace signups", detail: "Company size & stack enriched", channel: "HubSpot" },
       { target: "4 enterprise matches", detail: "Flagged to #revenue-alerts", channel: "Slack" },
@@ -116,7 +116,7 @@ export default function AiAgentsSection({ onOpenContact }: AiAgentsSectionProps)
     >
       <div className="wrap">
         {/* Top Reference-Style Split-Contrast Headline */}
-        <div className="max-w-[760px] mx-auto text-center mb-10 sm:mb-12">
+        <div data-aos="fade-up" className="max-w-[760px] mx-auto text-center mb-10 sm:mb-12">
           <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
             01 · AI Agents &amp; Workflow Automation
           </span>
@@ -129,9 +129,9 @@ export default function AiAgentsSection({ onOpenContact }: AiAgentsSectionProps)
         </div>
 
         {/* Scenario Switcher Tabs */}
-        <div className="flex justify-center mb-10 sm:mb-12">
+        <div data-aos="fade-up" data-aos-delay="80" className="flex justify-center mb-10 sm:mb-12">
           <div
-            className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full p-1 bg-[#f2f2f0] border border-black/[0.06]"
+            className="inline-flex items-center max-w-full overflow-x-auto gap-0.5 sm:gap-1 rounded-full p-1 bg-[#f2f2f0] border border-black/[0.06]"
             role="tablist"
             aria-label="AI Agent workflows"
           >
@@ -144,7 +144,7 @@ export default function AiAgentsSection({ onOpenContact }: AiAgentsSectionProps)
                   role="tab"
                   aria-selected={active}
                   onClick={() => handleSelectScenario(item.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-colors cursor-pointer ${
+                  className={`px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-[12px] font-medium whitespace-nowrap transition-colors cursor-pointer ${
                     active
                       ? "bg-[#202124] text-white"
                       : "text-[#51565c] hover:text-[#202124]"
@@ -158,7 +158,7 @@ export default function AiAgentsSection({ onOpenContact }: AiAgentsSectionProps)
         </div>
 
         {/* Minimal Centered Prompt -> Agent Exchange Stage */}
-        <div className="max-w-[540px] mx-auto flex flex-col items-center">
+        <div data-aos="fade-up" data-aos-delay="140" className="max-w-[540px] mx-auto flex flex-col items-center">
           {/* Animated Signal Waveform */}
           <div
             className="flex items-center justify-center gap-[5px] h-9 mb-6"
@@ -276,7 +276,7 @@ export default function AiAgentsSection({ onOpenContact }: AiAgentsSectionProps)
               onClick={onOpenContact}
               className="group mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#202124] hover:text-black/70 transition-colors cursor-pointer"
             >
-              <span>Build a custom AI agent</span>
+              <span>Build your AI agent</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </div>

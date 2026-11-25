@@ -14,34 +14,34 @@ interface FaqItem {
 
 const FAQ_ITEMS: FaqItem[] = [
   {
-    question: "How quickly can we kick off and see working progress?",
+    question: "How quickly can we kick off and see real progress?",
     answer:
-      "We typically start within 5–7 business days of scope alignment. You get your first interactive designs or live staging deployment within Week 1, followed by weekly Friday releases so you can test real builds as we go.",
+      "We usually start within a week of aligning on scope. You see interactive Figma prototypes or a live staging link early on, followed by regular staging releases so you test working software as we build.",
   },
   {
     question: "Who actually designs and builds our product?",
     answer:
-      "The same senior design and engineering leads you meet on the intro call. We don't hand projects off to junior teams or outsource layers—everyone touching your Figma files and repository is a senior builder.",
+      "The exact designers and developers you meet on the intro call. We never hand projects off to random contractors or middlemen — everyone touching your Figma files and repo is building it directly.",
   },
   {
-    question: "How do pricing and engagement timelines work?",
+    question: "How do pricing and timelines work?",
     answer:
-      "Focused sprints (landing pages, design systems, or AI workflows) are fixed-scope and run 2–4 weeks. Full 0→1 platforms run 4–8 weeks with milestone billing, and embedded product pods operate on a flexible monthly retainer you can pause anytime.",
+      "Every engagement is scoped to the product. Focused sprints and landing flagships are fixed-scope, full 0 to 1 builds run on milestone billing, and embedded pods run on a flexible monthly retainer you can pause anytime.",
   },
   {
     question: "Do we own 100% of the code, designs, and IP?",
     answer:
-      "Yes—always. Upon delivery, you own 100% of the Git repository, Figma design system, prompts, automation workflows, and infrastructure configs with zero proprietary lock-in.",
+      "Yes, always. Once delivered, you own 100% of the Git repository, Figma design system, prompts, automation workflows, and infrastructure configs with zero lock-in.",
   },
   {
-    question: "Can you integrate with our existing engineering team or stack?",
+    question: "Can you work inside our existing team and tech stack?",
     answer:
-      "Absolutely. We regularly ship inside existing Next.js, React, TypeScript, Python, and Node repositories via standard pull requests, CI/CD checks, and your team's Slack or Linear workspace.",
+      "Yes. We regularly ship directly inside existing Next.js, React, TypeScript, Python, and Node repositories through standard pull requests, CI checks, and your Slack or Linear workspace.",
   },
   {
-    question: "What happens after launch?",
+    question: "What happens after we launch?",
     answer:
-      "Every build includes a post-launch stabilization window for polish, analytics verification, and team handoff documentation. Many clients also stay on a lightweight monthly pod for ongoing features, CRO experiments, and new automations.",
+      "Every launch includes a stabilization window for polish, analytics checks, and team handoff docs. Many clients also keep us on a lightweight pod for new features, CRO experiments, and automations.",
   },
 ];
 
@@ -56,30 +56,35 @@ export default function FaqSection({ onOpenContact }: FaqSectionProps) {
       <div className="wrap">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Sticky Header */}
-          <div className="lg:col-span-5 lg:sticky lg:top-24 reveal-on-scroll">
-            <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
-              Common Questions
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-[44px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-              Questions, answered.
-            </h2>
-            <p className="mt-4 text-sm sm:text-base leading-[1.65] text-black/60 font-normal max-w-[420px] m-0">
-              Everything founders usually ask before we kick off a sprint or
-              product build — answered directly.
-            </p>
+          <div className="lg:col-span-5 lg:sticky lg:top-24">
+            <div data-aos="fade-up">
+              <span className="inline-block text-[11px] uppercase tracking-[0.08em] text-black/45 mb-3">
+                Common Questions
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-[44px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
+                Questions, answered.
+              </h2>
+              <p className="mt-4 text-sm sm:text-base leading-[1.65] text-black/60 font-normal max-w-[420px] m-0">
+                What founders usually ask before we kick off a sprint or product build.
+              </p>
 
-            <button
-              type="button"
-              onClick={onOpenContact}
-              className="group mt-7 inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-[14px] bg-black hover:bg-neutral-900 text-white font-semibold text-[14px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
-            >
-              <span>Ask Us Directly</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </button>
+              <button
+                type="button"
+                onClick={onOpenContact}
+                className="group mt-7 inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-[14px] bg-black hover:bg-neutral-900 text-white font-semibold text-[14px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
+              >
+                <span>Ask us directly</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </button>
+            </div>
           </div>
 
           {/* Right Accordion List */}
-          <div className="lg:col-span-7 divide-y divide-black/[0.08] border-t border-b border-black/[0.08] reveal-on-scroll">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="80"
+            className="lg:col-span-7 divide-y divide-black/[0.08] border-t border-b border-black/[0.08]"
+          >
             {FAQ_ITEMS.map((item, idx) => {
               const isOpen = openIndex === idx;
               return (
@@ -95,8 +100,10 @@ export default function FaqSection({ onOpenContact }: FaqSectionProps) {
                       {item.question}
                     </span>
                     <span
-                      className={`w-7 h-7 rounded-full bg-black/[0.04] flex items-center justify-center flex-shrink-0 transition-transform duration-300 ease-out ${
-                        isOpen ? "rotate-45 bg-black text-white" : "text-black/70"
+                      className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ease-out ${
+                        isOpen
+                          ? "rotate-45 bg-[#202124] text-white"
+                          : "bg-black/[0.05] text-[#202124]"
                       }`}
                       aria-hidden="true"
                     >

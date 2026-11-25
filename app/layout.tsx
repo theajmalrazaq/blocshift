@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Google_Sans_Flex } from "next/font/google";
+import "aos/dist/aos.css";
 import "./globals.css";
 
 const googleSansFlex = Google_Sans_Flex({
@@ -17,18 +18,17 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://blocshift.com"),
-  title: "Blocshift — We design and code that solves problems",
+  title: "Blocshift — Design and code for software that solves real problems",
   description:
-    "We bring together everything a business needs — from social content and landing pages to data analysis and custom AI agents.",
+    "Web platforms, design systems, custom AI agents, and live dashboards. One focused team from first sketch to launch.",
   keywords: [
     "Blocshift",
-    "Digital Agency",
-    "Email Design",
+    "Digital Product Studio",
+    "Web Engineering",
+    "Design Systems",
     "Landing Pages",
-    "Data Analytics",
+    "Executive Dashboards",
     "AI Agents",
-    "Web Development",
-    "Design Direction",
   ],
   authors: [{ name: "Blocshift" }],
   icons: {
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     apple: "/images/logo.svg",
   },
   openGraph: {
-    title: "Blocshift — We design and code that solves problems",
+    title: "Blocshift — Design and code for software that solves real problems",
     description:
-      "We bring together everything a business needs — from social content and landing pages to data analysis and custom AI agents.",
+      "Web platforms, design systems, custom AI agents, and live dashboards. One focused team from first sketch to launch.",
     url: "https://blocshift.com",
     siteName: "Blocshift",
     images: [

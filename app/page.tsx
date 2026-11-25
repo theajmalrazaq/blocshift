@@ -22,34 +22,42 @@ import ScrollAnimationProvider from "@/components/ScrollAnimationProvider";
 
 export default function Home() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>("Web & Platform Engineering");
+
+  const openContact = (service?: string) => {
+    if (service) setSelectedService(service);
+    setContactModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--page)] text-[var(--ink)] antialiased transition-colors">
       <ScrollAnimationProvider />
-      <Navbar onOpenContact={() => setContactModalOpen(true)} />
+      <Navbar onOpenContact={() => openContact()} />
 
       <main className="flex-grow">
-        <Hero onOpenContact={() => setContactModalOpen(true)} />
+        <Hero onOpenContact={() => openContact()} />
         <ProofStrip />
         <ProjectsShowcase />
         <div id="services">
-          <AiAgentsSection onOpenContact={() => setContactModalOpen(true)} />
-          <WebEngineeringSection onOpenContact={() => setContactModalOpen(true)} />
-          <DesignSystemsSection onOpenContact={() => setContactModalOpen(true)} />
-          <LandingPagesSection onOpenContact={() => setContactModalOpen(true)} />
-          <TelemetrySection onOpenContact={() => setContactModalOpen(true)} />
+          <AiAgentsSection onOpenContact={() => openContact("AI Agents & Automation")} />
+          <WebEngineeringSection onOpenContact={() => openContact("Web & Platform Engineering")} />
+          <DesignSystemsSection onOpenContact={() => openContact("Product Design & Design Systems")} />
+          <LandingPagesSection onOpenContact={() => openContact("High-Converting Landing Pages")} />
+          <TelemetrySection onOpenContact={() => openContact("Executive Dashboards & Telemetry")} />
         </div>
-        <ProcessSection onOpenContact={() => setContactModalOpen(true)} />
-        <EngagementSection onOpenContact={() => setContactModalOpen(true)} />
+        <ProcessSection onOpenContact={() => openContact()} />
+        <EngagementSection onOpenContact={(service) => openContact(service)} />
         <TestimonialsSection />
-        <FaqSection onOpenContact={() => setContactModalOpen(true)} />
+        <FaqSection onOpenContact={() => openContact()} />
       </main>
 
-      <Footer onOpenContact={() => setContactModalOpen(true)} />
+      <Footer onOpenContact={() => openContact()} />
 
       <ContactModal
+        key={selectedService}
         isOpen={contactModalOpen}
         onClose={() => setContactModalOpen(false)}
+        initialService={selectedService}
       />
     </div>
   );
