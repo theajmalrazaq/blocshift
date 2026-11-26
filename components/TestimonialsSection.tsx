@@ -17,7 +17,7 @@ const TESTIMONIALS: Testimonial[] = [
     id: "industrial-3d",
     metric: "2.4× Qualified RFQs",
     quote:
-      "Blocshift turned a dense, PDF-heavy catalog into an interactive web app our enterprise buyers understood right away. Every week brought a working staging link we could click through.",
+      "Blocshift turned our dense PDF catalog into an interactive site that enterprise buyers understood right away. Every week brought a working staging link we could click through.",
     author: "Marcus Vance",
     role: "VP of Product",
     company: "Industrial 3D Platform",
@@ -27,7 +27,7 @@ const TESTIMONIALS: Testimonial[] = [
     id: "ai-workflows",
     metric: "40+ Hrs/Wk Saved",
     quote:
-      "Most studios pitch decks about AI. Blocshift wired live ingestion workflows straight into our CRM and ops dashboard, and it has run quietly in production since day one.",
+      "They wired live ingestion workflows straight into our CRM and ops dashboard, and the pipeline has run reliably in production since launch.",
     author: "Elena Rostova",
     role: "Co-Founder & COO",
     company: "B2B Operations SaaS",
@@ -37,7 +37,7 @@ const TESTIMONIALS: Testimonial[] = [
     id: "design-engineering",
     metric: "99+ Lighthouse",
     quote:
-      "Having the same dedicated team own both our Figma system and production Next.js repo wiped out handoff friction completely. We launched fast and hit 99 on Lighthouse out of the gate.",
+      "Having the same team handle both our Figma system and Next.js codebase kept everything consistent. We launched on schedule with 99s on Lighthouse.",
     author: "Daniel Okafor",
     role: "Head of Engineering",
     company: "Fintech Telemetry Suite",
@@ -69,10 +69,10 @@ export default function TestimonialsSection() {
             Client Outcomes
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            Trusted by teams that ship.
+            What clients say.
           </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[540px] m-0">
-            Founders and product leaders bring us in when craft, speed, and reliability all have to land together.
+          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[520px] m-0">
+            Notes from founders and product teams we built software with.
           </p>
         </div>
 

@@ -18,9 +18,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://blocshift.com"),
-  title: "Blocshift — Design and code for software that solves real problems",
+  title: "Blocshift: Design and code for software that solves real problems",
   description:
-    "Web platforms, design systems, custom AI agents, and live dashboards. One focused team from first sketch to launch.",
+    "Web apps, design systems, AI agents, and internal dashboards, built by one small team from sketch to launch.",
   keywords: [
     "Blocshift",
     "Digital Product Studio",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     apple: "/images/logo.svg",
   },
   openGraph: {
-    title: "Blocshift — Design and code for software that solves real problems",
+    title: "Blocshift: Design and code for software that solves real problems",
     description:
-      "Web platforms, design systems, custom AI agents, and live dashboards. One focused team from first sketch to launch.",
+      "Web apps, design systems, AI agents, and internal dashboards, built by one small team from sketch to launch.",
     url: "https://blocshift.com",
     siteName: "Blocshift",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         url: "/images/hero-bg.png",
         width: 1440,
         height: 804,
-        alt: "Blocshift Studio Portfolio",
+        alt: "Blocshift Portfolio",
       },
     ],
     locale: "en_US",
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blocshift — We design and code that solves problems",
+    title: "Blocshift: Design and code for software that solves real problems",
     description:
-      "We bring together everything a business needs — from social content and landing pages to data analysis and custom AI agents.",
+      "Web apps, design systems, AI agents, and internal dashboards, built by one small team from sketch to launch.",
     images: ["/images/hero-bg.png"],
   },
 };

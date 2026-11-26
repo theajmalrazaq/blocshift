@@ -60,10 +60,10 @@ export default function Hero({ onOpenContact }: HeroProps) {
             <p
               data-aos="fade-up"
               data-aos-delay="100"
-              className="max-w-[580px] mt-3 mb-5 text-sm sm:text-[15px] leading-[1.65] text-white/90 font-normal"
+              className="max-w-[560px] mt-3 mb-5 text-sm sm:text-[15px] leading-[1.65] text-white/90 font-normal"
             >
-              Web platforms, design systems, custom AI agents, and live dashboards.
-              One focused team from first sketch to launch.
+              Web apps, design systems, AI agents, and internal dashboards,
+              built by one small team from first sketch to launch.
             </p>
 
             <div

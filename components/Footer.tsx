@@ -11,18 +11,19 @@ interface FooterProps {
 }
 
 const NAV_LINKS = [
-  { label: "Projects", href: "#case-studies" },
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Engagement", href: "#engagement" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Projects", href: "/#case-studies" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
+  { label: "Engagement", href: "/#engagement" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 const CAPABILITY_LINKS = [
-  { label: "AI Agents & Automation", href: "#ai-agents" },
-  { label: "Web & Platform Engineering", href: "#web-engineering" },
-  { label: "Product Design & Systems", href: "#design-systems" },
-  { label: "Landing Pages & Telemetry", href: "#landing-pages" },
+  { label: "AI Agents & Automation", href: "/#ai-agents" },
+  { label: "Web & Platform Engineering", href: "/#web-engineering" },
+  { label: "Product Design & Systems", href: "/#design-systems" },
+  { label: "Landing Pages & Telemetry", href: "/#landing-pages" },
 ];
 
 export default function Footer({ onOpenContact }: FooterProps) {
@@ -84,10 +85,10 @@ export default function Footer({ onOpenContact }: FooterProps) {
               </button>
 
               <Link
-                href="#case-studies"
+                href="/portfolio"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[14px] bg-white hover:bg-neutral-100 text-black font-semibold text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-white"
               >
-                <span>Explore Work</span>
+                <span>Explore Portfolio</span>
               </Link>
             </div>
           </div>

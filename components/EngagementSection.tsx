@@ -135,11 +135,11 @@ export default function EngagementSection({
             Ways to Work Together
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            Clear scope for every service.
+            Simple pricing by service.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[560px] m-0">
-            Pick a single service with transparent pricing ranges or combine
-            multiple capabilities into a custom build.
+            Pick one service with upfront price ranges, or combine multiple
+            services into a custom scope.
           </p>
         </div>
 

@@ -89,7 +89,7 @@ export function WebEngineeringSection({ onOpenContact }: SectionProps) {
             Built for real speed.
           </h2>
           <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[540px] mx-auto m-0">
-            Full-stack web apps designed for fast loads, clean codebases, and heavy traffic.
+            Next.js and Postgres apps built to load quickly and hold up under real traffic.
           </p>
         </div>
 
@@ -236,7 +236,7 @@ export function DesignSystemsSection({ onOpenContact }: SectionProps) {
             One system from Figma to code.
           </h2>
           <p className="mt-3 text-sm sm:text-base md:text-[17px] leading-[1.6] text-black/55 font-normal max-w-[540px] mx-auto m-0">
-            Interfaces and component libraries your engineering team can ship without guesswork.
+            Figma libraries and React components built from the same spacing, color, and type rules.
           </p>
         </div>
 
@@ -453,18 +453,18 @@ export function LandingPagesSection({ onOpenContact }: SectionProps) {
                 <div className="space-y-3">
                   <div className="rounded-lg bg-[#fafaf9] border border-black/[0.07] p-3">
                     <div className="text-[11px] text-[#51565c] mb-1">
-                      01 · Sharp Outcome Headline
+                      01 · Clear Opening Hook
                     </div>
                     <div className="text-[13px] font-medium text-[#202124]">
-                      Clear ICP promise + zero jargon in the first 3 seconds
+                      Plain explanation of what your product does in the first three seconds
                     </div>
                   </div>
                   <div className="rounded-lg bg-[#fafaf9] border border-black/[0.07] p-3">
                     <div className="text-[11px] text-[#51565c] mb-1">
-                      02 · Interactive Product Proof
+                      02 · Working Product Proof
                     </div>
                     <div className="text-[13px] font-medium text-[#202124]">
-                      Real UI slices + quantified outcomes before the first scroll
+                      Actual UI screens and concrete numbers before the first scroll
                     </div>
                   </div>
                   <div className="rounded-lg bg-[#eaf4fc] border border-black/[0.07] p-3 flex items-center justify-between">

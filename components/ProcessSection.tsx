@@ -31,7 +31,7 @@ const PROCESS_STEPS: ProcessStep[] = [
     phase: "Phase 01",
     title: "Scope & Architecture",
     description:
-      "Align on goals, user flows, and technical architecture before writing code.",
+      "We lock in project goals, user flows, and database structure before writing code.",
     deliverables: ["Stack spec", "API & schema", "Direct Slack"],
     milestone: "Scope & Architecture Lock",
     renderVisual: () => <ProcessVisual01Scope />,
@@ -42,7 +42,7 @@ const PROCESS_STEPS: ProcessStep[] = [
     phase: "Phase 02",
     title: "Design & Prototypes",
     description:
-      "Clickable Figma flows and modular token libraries ready for clean handoff.",
+      "You get clickable Figma flows and shared color and spacing tokens before build begins.",
     deliverables: ["Figma prototypes", "Design tokens", "Responsive states"],
     milestone: "Figma Component System",
     renderVisual: () => <ProcessVisual02Design />,
@@ -53,7 +53,7 @@ const PROCESS_STEPS: ProcessStep[] = [
     phase: "Phase 03",
     title: "Production Sprints",
     description:
-      "Live staging builds and async walkthroughs so you test real software early.",
+      "We push live staging links and short walkthrough videos each week so you test real builds early.",
     deliverables: ["Live staging URL", "Async Looms", "Automated CI/CD"],
     milestone: "Continuous Staging Builds",
     renderVisual: () => <ProcessVisual03Sprints />,
@@ -64,7 +64,7 @@ const PROCESS_STEPS: ProcessStep[] = [
     phase: "Phase 04",
     title: "QA & Handover",
     description:
-      "Core Web Vitals tuning, live telemetry, and 100% repository IP ownership.",
+      "We run speed checks, wire analytics, and transfer 100% of the repo and Figma files to you.",
     deliverables: ["99+ Lighthouse", "Live telemetry", "100% IP transfer"],
     milestone: "100/100 Core Web Vitals",
     renderVisual: () => <ProcessVisual04Launch />,
@@ -196,10 +196,10 @@ export default function ProcessSection({ onOpenContact }: ProcessSectionProps) {
             How We Work
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.08] tracking-[-0.035em] text-[#202124] m-0">
-            From brief to shipped.
+            How a project runs.
           </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[560px] m-0">
-            Four focused phases with live staging builds and direct access to the people building your product.
+          <p className="mt-4 text-sm sm:text-base md:text-[17px] leading-[1.65] text-black/60 font-normal max-w-[540px] m-0">
+            Four clear steps from scoping to launch, with weekly staging links and direct Slack access.
           </p>
         </div>
 

@@ -25,7 +25,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     problem:
       "High-ticket buyers were forced to make $50K–$500K purchasing decisions from static PDFs without seeing configurations or materials up close.",
     solution:
-      "Designed a dark, high-contrast showcase hero highlighting real-time 3D configurators across automotive, luxury, and architectural verticals.",
+      "Built a dark hero that walks buyers through live 3D configurators for cars, boats, and architecture.",
     mockup: "/images/macbook-mockups/01-industrial-3d.webp",
     image: "/images/projects-v3/proj-01.webp",
     width: 1435,
@@ -229,7 +229,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     problem:
       "Luxury property owners wanted short-term rental yields without dealing with guest logistics, pricing optimization, or maintenance.",
     solution:
-      "Built an architectural, hospitality-grade landing page highlighting revenue optimization and hands-free end-to-end property care.",
+      "Built a hospitality landing page focused on rental yield tracking and full-service property management.",
     mockup: "/images/macbook-mockups/16-high-yield-property.webp",
     image: "/images/projects-v3/proj-13.webp",
     width: 1440,
@@ -365,7 +365,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     problem:
       "Dental clinics facing broken X-ray sensors needed rapid, trustworthy repair quotes rather than costly OEM replacements.",
     solution:
-      "Delivered a clinical, distraction-free hero highlighting free shipping diagnostics and an unmistakable Get Free Estimate CTA.",
+      "Designed a direct hero centered on free diagnostic shipping and a clear Get Free Estimate flow.",
     mockup: "/images/macbook-mockups/20-dental-xray-repair.webp",
     image: "/images/projects-v3/proj-21.webp",
     width: 1440,
@@ -397,7 +397,7 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     category: "Real Estate & Workspace",
     domain: "coworking-booking.com",
     problem:
-      "Local founders and remote teams struggled to visualize available private offices and book tours seamlessly across desktop and mobile.",
+      "Local founders and remote teams had trouble browsing open private offices and booking tours across desktop and mobile.",
     solution:
       "Built an inviting editorial hero with live location cards, instant tour booking CTAs, and an interactive office showcase grid.",
     mockup: "/images/macbook-mockups/03-marlton-coworking.webp",
@@ -423,6 +423,23 @@ export const SHOWCASE_PROJECTS: ShowcaseProject[] = [
     width: 1439,
     height: 1405,
     backdrop: "linear-gradient(135deg, #dbeafe 0%, #e0f2fe 50%, #f1f5f9 100%)",
+    darkChrome: false,
+  },
+  {
+    id: "sbs-footwear",
+    number: "25",
+    title: "SBS. Sneaker & Sportswear Storefront",
+    category: "E-Commerce & Footwear",
+    domain: "sbs-footwear.store",
+    problem:
+      "Multi-brand footwear stores often bury hero releases inside cluttered catalog grids, weakening product storytelling and fast browse-to-cart flow.",
+    solution:
+      "Designed an editorial sneaker storefront pairing serif headlines and lime product callouts with retail partner logos and quick-shop shoe cards.",
+    mockup: "/images/projects-v3/proj-25.webp",
+    image: "/images/projects-v3/proj-25.webp",
+    width: 1728,
+    height: 1892,
+    backdrop: "linear-gradient(135deg, #f7fee7 0%, #f4f4f5 55%, #ffffff 100%)",
     darkChrome: false,
   },
 ];

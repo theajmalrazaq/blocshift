@@ -80,7 +80,7 @@ export default function ContactModal({
 
         <div className="mb-6">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--lime)] text-[var(--lime-ink)] text-xs font-bold mb-2">
-            <span>Direct Studio Access</span>
+            <span>Replies within 24 hours</span>
           </div>
           <h2
             id="contact-modal-title"
@@ -89,7 +89,7 @@ export default function ContactModal({
             Start your project
           </h2>
           <p className="text-sm text-[var(--muted)] mt-1">
-            Tell us what you&apos;re building and we&apos;ll reply within 24 hours.
+            Tell us what you are building and when you want to launch.
           </p>
         </div>
 
@@ -100,8 +100,7 @@ export default function ContactModal({
               Got it. We&apos;ll be in touch.
             </h3>
             <p className="text-sm text-[var(--muted)] mt-1 max-w-xs">
-              One of our studio leads will review your note and get back to you
-              within 24 hours.
+              We will read your note and reply within 24 hours.
             </p>
           </div>
         ) : (

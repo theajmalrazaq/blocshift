@@ -6,22 +6,22 @@ const METRICS = [
   {
     value: "25+",
     label: "Products shipped",
-    detail: "Web apps, flagships, and AI tools",
+    detail: "Web apps, landing pages, and AI tools",
   },
   {
     value: "Weekly",
     label: "Staging releases",
-    detail: "Live links to test, never slide decks",
+    detail: "Working staging links to test every week",
   },
   {
     value: "99+",
     label: "Core Web Vitals",
-    detail: "Fast page loads out of the box",
+    detail: "Sub-second page loads on real devices",
   },
   {
     value: "100%",
     label: "Direct builders",
-    detail: "Work straight with the team shipping it",
+    detail: "Work directly with the designers and engineers building your product",
   },
 ];
 

@@ -21,7 +21,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Who actually designs and builds our product?",
     answer:
-      "The exact designers and developers you meet on the intro call. We never hand projects off to random contractors or middlemen — everyone touching your Figma files and repo is building it directly.",
+      "The designers and developers you meet on the intro call stay on your project through launch. Everyone working in your Figma files and Git repo is part of our core team.",
   },
   {
     question: "How do pricing and timelines work?",

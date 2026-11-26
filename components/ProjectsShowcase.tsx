@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   ChevronLeft,
@@ -449,16 +450,25 @@ export default function ProjectsShowcase() {
               })}
             </div>
 
-            {/* View Portfolio Button */}
-            <div className="mt-5 sm:mt-6 flex justify-center">
+            {/* View Portfolio Buttons */}
+            <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-2.5">
+              <Link
+                href={`/portfolio/${SHOWCASE_PROJECTS[activeIndex]?.id || "industrial-3d"}`}
+                className="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-full bg-[#202124] hover:bg-neutral-800 text-white font-semibold text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-black"
+                aria-label={`Open portfolio page for ${SHOWCASE_PROJECTS[activeIndex]?.title || "project"}`}
+              >
+                <span>Open project</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+
               <button
                 type="button"
                 onClick={() => setModalProject(SHOWCASE_PROJECTS[activeIndex])}
-                className="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-full bg-[#202124] hover:bg-neutral-800 text-white font-semibold text-[14px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
-                aria-label={`View portfolio for ${SHOWCASE_PROJECTS[activeIndex]?.title || "project"}`}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#f2f2f0] hover:bg-[#e7e7e4] text-[#202124] font-medium text-[13px] border border-black/[0.09] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-black"
+                aria-label={`Preview ${SHOWCASE_PROJECTS[activeIndex]?.title || "project"} full screen`}
               >
-                <span>View full screen</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                <ZoomIn className="w-3.5 h-3.5" />
+                <span>Full screen</span>
               </button>
             </div>
           </div>
